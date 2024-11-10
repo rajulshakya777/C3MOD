@@ -123,7 +123,7 @@ def main():
     # Save X_scaled, pca_df, and cancer_type
     with open(output_path, 'wb') as f:
         pickle.dump((X_scaled, pca_df, cancer_type), f)
-    print(f"{CYAN}📈 {BOLD}Results:{RESET} {YELLOW}All results and plots saved to recommended_K folder.{RESET}")
+    # print(f"{CYAN}📈 {BOLD}Results:{RESET} {YELLOW}All results and plots saved to recommended_K folder.{RESET}")
 
 if __name__ == "__main__":
     main()
