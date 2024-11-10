@@ -40,9 +40,7 @@ Silhouti Scores and WCSS Plots Will be saved to recommended_K directory inside o
 Example : Based on generated Silhouti score and WCSS plot for KMeans algorithm, tool will recommend you the best K (number of cluster) to choose else
 you can decide by your own choice also
   
-<img src="output/recommended_K/KMeans_recommended_k_plots.png" width="450"/>
-
-<img src="https://github.com/user-attachments/assets/4523b77f-0ed8-4e1f-a09c-a69aeb51f45c" width="300" height="300"/>
+<img src="output/recommended_K/KMeans_recommended_k_plots.png" width="500"/>
 
 Step 4: User Input: Algorithm Selection and K (number of cluster)
 
@@ -63,9 +61,70 @@ If you choose SNF, you can also change some other algorithm parameters from the 
 
 Based on your choice, algorithm will run and all the results will be saved in clustering_resutls directory inside output directory.
 
+1. Classification file
+<img src="https://github.com/user-attachments/assets/dac1096d-e61a-40c3-8c88-3ab067632922"/>
 
+2. PCA plots
+<img src="https://github.com/user-attachments/assets/4058aeb4-b72f-4ac3-819c-3dbe41bea426" width="500"/>
 
-Based on your selection, algorithm will run 
+Once clustering is completed, You will have menu to select the analysis you wanted to peroform on the identified clusters 
+
+Select the further analysis you want to perform:
+1. Survival Analysis
+2. Mutation Analysis
+3. Stage Analysis
+4. Immune Analysis
+5. Run All
+
+Once user gives the input, it will perform the analysis based on the user choice
+
+## Example 
+User selects option 5 to Run All analysis
+
+Step 5 : Survival analysis
+Survival analysis will be performed using Cox Proportional-Hazards Model (coxph) method and save the resutls to survival_analysis folder inside output folder
+
+KMeans survival plot
+<img src="https://github.com/user-attachments/assets/3a4d8816-a7cb-4851-9d90-21dd24b43b41" width="500"/>
+
+Interpretation: Following interpretation can be made from the above survival analysis plot 
+1. Cluster-Specific Survival Trends: Each cluster has distinct survival curves, showing different survival probabilities over time.
+2. Variability: The shaded areas around each curve show the range where most survival times fall, with wider areas meaning more variety within that group.
+3. Significance Testing: Pairwise p-values indicate statistically significant differences (low values) or similarities (high values) between clusters.
+4. Cluster Comparison: Survival curves and p-values together highlight which clusters have better or worse survival outcomes.
+5. Potential Clinical Insights: Differences in survival may suggest biological or clinical factors unique to each cluster, guiding further analysis.
+
+Step 5 : Mutation analysis
+Input data : Identified Clusters, Gene Mutation Data
+Below analysis will be performed and results will be saved to mutation_analysis folder in output directory
+1. Chi sqaure test : Chi square test peroformed to calcuate the significant difference for each gene between different pair of clusters.
+
+<img src="https://github.com/user-attachments/assets/df9509f8-8255-4b23-ae79-98570b8f8038"/>
+
+Interpretation Example : For Gene CPHL1P, P-value 0.99941 between cluster 1 and cluster 2 shows very less signigicant difference.
+
+2. Top 5 genes showing significant difference (Lowest P-value) between each pair of cluster
+
+<img src="https://github.com/user-attachments/assets/341c9165-eae5-41c0-bc94-6eb21ac6b4f0"/>
+
+Interpretation Example : Genes BMP8A, FCGR3B, REEP6, IGKV1D-12 and GNG4 showing lowest p-values meaning are highly significant between cluster pair a 1 and 3. 
+
+3. Similarity between cluster pairs : Similarity between clusters is shown using correlation between each pair of clusters and correlation matrix is saved to mutation_analysis folder.
+
+<img src="https://github.com/user-attachments/assets/d664de49-33df-433e-835d-eaa9f5645762" width="500"/>
+   
+Possible Interpretation Example : From the above plot, some interpretation examples could be
+- High Correlation Values: The R-values (correlation coefficients) between clusters show how similar they are based on mutations. Values close to 1 indicate a strong positive similarity between clusters.
+- Statistical Significance: Each R-value has an associated p-value, with extremely low p-values (like 1.000e-100) indicating that these similarities are statistically significant.
+- Cluster Similarities: Clusters 1 and 3, as well as Clusters 2 and 3, show high correlation values (0.871 and 0.749, respectively), suggesting they share similar mutation patterns.
+
+4. Total mutation in each cluster : Bar graph of sum of total number of mutations in all the patient's of each cluster saved in mutation_analysis folder
+
+<img src="https://github.com/user-attachments/assets/beb06da6-211a-4c5e-9623-f7d559f8edf1" width="500"/>
+  
+Possible Interpretation : More evidence that cluster are significantly different based on the number of mutations  
+
+4. 
 
 To predict 3 clusters for cancer type “CHOL” with n_iter (Number of iterations) = 7, use the following command-
 
