@@ -27,7 +27,8 @@ Step 2: Data Pre-Processing
 
 Step 3: Recommend K as per your choice of data and algorithm
 - User input : Select the algorithm for which you want to find the recommended K from the menu
-[1. SNF
+
+1. SNF
 2. KMeans
 3. Hierarchical Clustering
 4. Spectral Clustering
@@ -36,10 +37,36 @@ Step 3: Recommend K as per your choice of data and algorithm
 
 Recommend K based on Silhouti score and WCSS methods.
 Silhouti Scores and WCSS Plots Will be saved to recommended_K directory inside output directory
-  Example : KMeans Silhouti and WCSS
+Example : Based on generated Silhouti score and WCSS plot for KMeans algorithm, tool will recommend you the best K (number of cluster) to choose else
+you can decide by your own choice also
   
 <img src="output/recommended_K/KMeans_recommended_k_plots.png" width="450"/>
-  
+
+<img src="https://github.com/user-attachments/assets/f970c922-2773-4d0f-8333-0ceba1214784" width="400"/>
+
+Step 4: User Input: Algorithm Selection and K (number of cluster)
+
+1. SNF
+2. KMeans
+3. Hierarchical Clustering
+4. Spectral Clustering
+5. Fuzzy C-Means
+6. Run All
+
+You need to select the algorithm from the menu and enter any integer k (between 2 and 7)
+If you choose SNF, you can also change some other algorithm parameters from the below menu or you can keep them default by selecting option 4 
+
+1. Number of neighbors for constructing affinity matrix (Default is 20)
+2. Hyperparameter alpha for constructing affinity matrix (Default is 0.5)
+3. Number of iterations for SNF (Default is 15)
+4. No (Keep the default values)
+
+Based on your choice, algorithm will run and all the results will be saved in clustering_resutls directory inside output directory.
+
+
+
+Based on your selection, algorithm will run 
+
 To predict 3 clusters for cancer type “CHOL” with n_iter (Number of iterations) = 7, use the following command-
 
 <img src="iCluF_modules/CHOL_Readme.png" width="450"/>
