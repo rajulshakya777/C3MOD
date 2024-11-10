@@ -33,8 +33,9 @@ Step 3: Recommend K as per your choice of data and algorithm
 4. Spectral Clustering
 5. Fuzzy C-Means
 6. Run All
-- Recommend K based on Silhouti score and WCSS methods.
-- Silhouti Scores and WCSS Plots Will be saved to recommended_K directory inside output directory
+
+Recommend K based on Silhouti score and WCSS methods.
+Silhouti Scores and WCSS Plots Will be saved to recommended_K directory inside output directory
   Example : KMeans Silhouti and WCSS
   
 <img src="output/![KMeans_recommended_k_plots](https://github.com/user-attachments/assets/672c0c16-1c11-4272-b51a-3706e58b47f8)
