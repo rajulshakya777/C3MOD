@@ -38,11 +38,7 @@ Recommend K based on Silhouti score and WCSS methods.
 Silhouti Scores and WCSS Plots Will be saved to recommended_K directory inside output directory
   Example : KMeans Silhouti and WCSS
   
-<img src="output/![KMeans_recommended_k_plots](https://github.com/user-attachments/assets/672c0c16-1c11-4272-b51a-3706e58b47f8)
-.png" width="450"/>
-
-
-
+<img src="output/recommended_K/KMeans_recommended_k_plots.png" width="450"/>
   
 To predict 3 clusters for cancer type “CHOL” with n_iter (Number of iterations) = 7, use the following command-
 
