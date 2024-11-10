@@ -4,7 +4,8 @@ The main objective of C3MOD is to provide user a centralized tool with complete 
 based on it's area of interest user can draw the conclusion based on the analysis it has performed.
 
 # Requirements
-This tool can be download from https://github.com/rajulshakya777/C3MOD.git 
+This tool can be download from https://github.com/rajulshakya777/C3MOD.git
+
 Recommended python version is : >=3.10
 
 # Steps for Running C3MOD
@@ -94,7 +95,7 @@ Interpretation: Following interpretation can be made from the above survival ana
 4. Cluster Comparison: Survival curves and p-values together highlight which clusters have better or worse survival outcomes.
 5. Potential Clinical Insights: Differences in survival may suggest biological or clinical factors unique to each cluster, guiding further analysis.
 
-Step 5 : Mutation analysis
+Step 6 : Mutation analysis
 Input data : Identified Clusters, Gene Mutation Data
 Below analysis will be performed and results will be saved to mutation_analysis folder in output directory
 1. Chi sqaure test : Chi square test peroformed to calcuate the significant difference for each gene between different pair of clusters.
@@ -124,22 +125,29 @@ Possible Interpretation Example : From the above plot, some interpretation examp
   
 Possible Interpretation : More evidence that cluster are significantly different based on the number of mutations  
 
-4. 
+5. Number of genes vs P-values between each pair of cluster : Number of genes vs P-values between each pair of cluster showing, how many genes are showing stastical significance.
 
-To predict 3 clusters for cancer type “CHOL” with n_iter (Number of iterations) = 7, use the following command-
+<img src="https://github.com/user-attachments/assets/f0950ee1-f3e6-4ead-8a1c-8cc577327417" width="500"/>
 
-<img src="iCluF_modules/CHOL_Readme.png" width="450"/>
+Possible Interpretation : There are very few genes in cluster 1 and cluster 2 (shown in red) whose p-value is less than 0.05 are against the evidence that clusters are significantly different.
 
-## Example 2: 
-To predict 4 clusters for cancer type “ACC” with n_iter (Number of iterations) = 6, use the following command-
+Step 7 : Stage analysis
+Stage analysis is to show the stage distribution among different patients across different clusters.
 
-<img src="iCluF_modules/ACC_Readme.png" width="450"/>
+Input data : Stage data + Identified Clusters
 
-The predicted clusters are saved in the output folder .data/output/Clusters
+<img src="https://github.com/user-attachments/assets/8f6e7999-3961-4a60-808c-24177edc768f" width="450"/>
 
-Please choose a cancer type from the following list of 30 cancers-
-['ACC', 'BLCA', 'BRCA', 'CESC', 'CHOL', 'COAD', 'DLBC', 'ESCA', 'GBM', 'HNSC', 'KICH', 'KIRC', 'KIRP', 'LAML', 'LGG', 'LIHC', 'LUAD', 'LUSC', 'MESO', 'PAAD', 'PCPG', 'PRAD', 'READ', 'SARC', 'STAD', 'TGCT', 'THCA', 'THYM', 'UCEC', 'UCS'
-, 'UVM']
+Interpration : It can be interpretaed that Cluster 3 patieints health is better than Cluster 1 Patients which requires more aggressive treatment for cluster 1 patients.
 
-# Running iCluF on different dataset
-For running the algorithm on a dataset that is not in the list, the user needs to create a folder with the proper name in “./data/input_data/TCGA_data”.  The format of the data types should be the same as given in the different cancer types. 
+Step 8 : Immune analysis
+Immune analysis is to show similarity matrix between clusters based on the immunescores.
+
+<img src="https://github.com/user-attachments/assets/aab56bcf-0c7d-46d5-a5de-f96c8489d656" width="450"/>
+
+Interpration : 
+1. Strong Similarity Between Clusters: The R-values are very high (close to 1) for all cluster comparisons, indicating a strong similarity in immune scores between the clusters. This suggests that these clusters may have similar immune characteristics.
+
+2. High Statistical Significance: The extremely low p-values (e.g., 9.446e-179) show that these similarities are statistically significant, meaning the correlation results are highly reliable and unlikely to be due to random chance.
+
+Once All the analysis is completed, we see a "Analysis completed successfully message" on the console.
