@@ -13,7 +13,7 @@ Recommended python version is : >=3.10
 3. Activate the environemtn : source <env>/bin/activate
 4. Run main.py file present inside c3mod_lib directory : python main.py
 
-# Running iCluF 
+# Running C3MOD 
 ## Example 1: Run main.py
 
 Step 1: Python and R packages installation
