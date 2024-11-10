@@ -1,0 +1,280 @@
+"patient"	"RNA"	"Methylation"	"RPPA"	"miRNA"	"Copy.Number"	"PARADIGM"
+"TCGA-BA-4074"	"Mesenchymal"	"hypo-methylated"	1	4	1	4
+"TCGA-BA-4076"	"Basal"	"normal-like"	NA	2	2	4
+"TCGA-BA-4077"	"Atypical"	"normal-like"	NA	4	1	1
+"TCGA-BA-4078"	"Classical"	"normal-like"	3	1	1	5
+"TCGA-BA-5149"	"Basal"	"hyper-methylated"	1	2	1	4
+"TCGA-BA-5151"	"Basal"	"CpG island hyper-methylated"	1	2	3	4
+"TCGA-BA-5152"	"Atypical"	"hyper-methylated"	3	1	1	4
+"TCGA-BA-5153"	"Atypical"	"hyper-methylated"	3	3	3	5
+"TCGA-BA-5555"	"Atypical"	"hypo-methylated"	3	1	2	5
+"TCGA-BA-5556"	"Basal"	"hyper-methylated"	1	2	3	4
+"TCGA-BA-5557"	"Basal"	"hyper-methylated"	1	2	3	1
+"TCGA-BA-5558"	"Basal"	"CpG island hyper-methylated"	NA	2	1	4
+"TCGA-BA-5559"	"Atypical"	"hyper-methylated"	3	1	3	5
+"TCGA-BA-6868"	"Classical"	"normal-like"	NA	4	2	2
+"TCGA-BA-6869"	"Atypical"	"hypo-methylated"	2	1	1	4
+"TCGA-BA-6870"	"Basal"	"normal-like"	1	3	2	2
+"TCGA-BA-6871"	"Mesenchymal"	"normal-like"	3	1	2	5
+"TCGA-BA-6872"	"Basal"	"CpG island hyper-methylated"	2	4	2	4
+"TCGA-BA-6873"	"Basal"	"hyper-methylated"	2	4	1	4
+"TCGA-BA-7269"	"Classical"	"normal-like"	NA	5	2	4
+"TCGA-BB-4217"	"Atypical"	"hyper-methylated"	3	3	1	4
+"TCGA-BB-4223"	"Atypical"	"CpG island hyper-methylated"	NA	3	3	5
+"TCGA-BB-4224"	"Basal"	"hyper-methylated"	NA	2	2	2
+"TCGA-BB-4225"	"Atypical"	"CpG island hyper-methylated"	NA	3	3	5
+"TCGA-BB-4228"	"Atypical"	"CpG island hyper-methylated"	NA	3	3	5
+"TCGA-CN-4723"	"Classical"	"normal-like"	1	3	1	4
+"TCGA-CN-4725"	"Basal"	"hyper-methylated"	4	2	2	2
+"TCGA-CN-4726"	"Basal"	"CpG island hyper-methylated"	4	2	1	2
+"TCGA-CN-4727"	"Classical"	"hypo-methylated"	1	1	1	4
+"TCGA-CN-4728"	"Mesenchymal"	"normal-like"	4	4	2	1
+"TCGA-CN-4729"	"Basal"	"hyper-methylated"	1	3	2	4
+"TCGA-CN-4730"	"Basal"	"hypo-methylated"	3	2	2	4
+"TCGA-CN-4731"	"Classical"	"hypo-methylated"	4	4	1	2
+"TCGA-CN-4733"	"Mesenchymal"	"hyper-methylated"	1	4	3	1
+"TCGA-CN-4735"	"Mesenchymal"	"normal-like"	1	3	1	5
+"TCGA-CN-4736"	"Mesenchymal"	"hyper-methylated"	4	4	1	1
+"TCGA-CN-4737"	"Mesenchymal"	"hypo-methylated"	4	2	2	2
+"TCGA-CN-4738"	"Atypical"	"normal-like"	2	3	1	1
+"TCGA-CN-4739"	"Atypical"	"hypo-methylated"	1	3	2	5
+"TCGA-CN-4740"	"Mesenchymal"	"hypo-methylated"	4	4	1	1
+"TCGA-CN-4741"	"Atypical"	"CpG island hyper-methylated"	3	2	3	5
+"TCGA-CN-4742"	"Basal"	"hyper-methylated"	4	2	2	2
+"TCGA-CN-5355"	"Basal"	"hyper-methylated"	3	2	1	4
+"TCGA-CN-5356"	"Mesenchymal"	"hypo-methylated"	2	2	1	2
+"TCGA-CN-5358"	"Mesenchymal"	"normal-like"	4	3	3	1
+"TCGA-CN-5359"	"Mesenchymal"	"normal-like"	1	4	2	1
+"TCGA-CN-5360"	"Atypical"	"normal-like"	4	3	1	1
+"TCGA-CN-5363"	"Mesenchymal"	"hyper-methylated"	1	3	2	4
+"TCGA-CN-5364"	"Atypical"	"hyper-methylated"	4	4	1	4
+"TCGA-CN-5365"	"Basal"	"hyper-methylated"	2	2	1	4
+"TCGA-CN-5366"	"Basal"	"hyper-methylated"	1	2	1	4
+"TCGA-CN-5367"	"Basal"	"hyper-methylated"	4	4	1	4
+"TCGA-CN-5369"	"Basal"	"hyper-methylated"	1	3	3	4
+"TCGA-CN-5370"	"Mesenchymal"	"hyper-methylated"	4	4	1	1
+"TCGA-CN-5373"	"Basal"	"hyper-methylated"	2	2	3	1
+"TCGA-CN-5374"	"Atypical"	"normal-like"	3	3	1	5
+"TCGA-CN-6010"	"Classical"	"normal-like"	3	3	2	5
+"TCGA-CN-6011"	"Basal"	"CpG island hyper-methylated"	2	4	2	2
+"TCGA-CN-6012"	"Atypical"	"normal-like"	4	1	2	5
+"TCGA-CN-6013"	"Atypical"	"hyper-methylated"	3	4	1	1
+"TCGA-CN-6016"	"Mesenchymal"	"hyper-methylated"	3	4	3	1
+"TCGA-CN-6017"	"Mesenchymal"	"hyper-methylated"	4	4	3	1
+"TCGA-CN-6018"	"Mesenchymal"	"hyper-methylated"	1	4	2	1
+"TCGA-CN-6019"	"Mesenchymal"	"normal-like"	4	5	1	1
+"TCGA-CN-6020"	"Basal"	"hyper-methylated"	1	4	2	2
+"TCGA-CN-6021"	"Atypical"	"normal-like"	3	2	1	5
+"TCGA-CN-6022"	"Mesenchymal"	"normal-like"	4	4	1	1
+"TCGA-CN-6023"	"Classical"	"normal-like"	3	1	1	5
+"TCGA-CN-6024"	"Classical"	"normal-like"	3	4	2	2
+"TCGA-CN-6988"	"Atypical"	"hypo-methylated"	3	2	2	2
+"TCGA-CN-6989"	"Mesenchymal"	"normal-like"	3	5	2	1
+"TCGA-CN-6992"	"Classical"	"normal-like"	3	1	2	5
+"TCGA-CN-6994"	"Classical"	"hyper-methylated"	2	4	2	2
+"TCGA-CN-6995"	"Basal"	"hyper-methylated"	3	4	2	4
+"TCGA-CN-6997"	"Classical"	"hypo-methylated"	3	4	2	2
+"TCGA-CN-6998"	"Basal"	"hyper-methylated"	2	2	1	4
+"TCGA-CQ-5323"	"Atypical"	"normal-like"	2	4	1	5
+"TCGA-CQ-5324"	"Classical"	"CpG island hyper-methylated"	3	2	3	2
+"TCGA-CQ-5325"	"Mesenchymal"	"hyper-methylated"	4	4	3	1
+"TCGA-CQ-5326"	"Basal"	"normal-like"	1	2	1	4
+"TCGA-CQ-5329"	"Mesenchymal"	"hyper-methylated"	1	4	1	4
+"TCGA-CQ-5330"	"Mesenchymal"	"CpG island hyper-methylated"	4	4	1	1
+"TCGA-CQ-5331"	"Basal"	"hyper-methylated"	2	2	3	4
+"TCGA-CQ-5332"	"Classical"	"normal-like"	3	1	2	2
+"TCGA-CQ-5334"	"Mesenchymal"	"CpG island hyper-methylated"	4	2	3	4
+"TCGA-CQ-6218"	"Basal"	"hyper-methylated"	2	2	3	4
+"TCGA-CQ-6220"	"Basal"	"hyper-methylated"	2	4	1	4
+"TCGA-CQ-6221"	"Mesenchymal"	"normal-like"	4	4	1	1
+"TCGA-CQ-6223"	"Basal"	"hyper-methylated"	NA	2	1	4
+"TCGA-CQ-6224"	"Mesenchymal"	"hyper-methylated"	4	4	1	2
+"TCGA-CQ-6225"	"Atypical"	"hypo-methylated"	4	1	2	2
+"TCGA-CQ-6227"	"Mesenchymal"	"hyper-methylated"	4	5	1	2
+"TCGA-CQ-6228"	"Classical"	"hypo-methylated"	3	1	2	2
+"TCGA-CQ-6229"	"Basal"	"hyper-methylated"	2	4	1	2
+"TCGA-CQ-7065"	"Basal"	"hyper-methylated"	2	2	1	2
+"TCGA-CQ-7068"	"Basal"	"CpG island hyper-methylated"	2	4	3	4
+"TCGA-CR-5243"	"Atypical"	"normal-like"	NA	1	1	5
+"TCGA-CR-5247"	"Classical"	"hypo-methylated"	NA	4	2	2
+"TCGA-CR-5248"	"Atypical"	"hyper-methylated"	NA	3	1	5
+"TCGA-CR-5249"	"Atypical"	"hyper-methylated"	NA	1	3	5
+"TCGA-CR-5250"	"Atypical"	"hyper-methylated"	NA	1	3	5
+"TCGA-CR-6467"	"Atypical"	"CpG island hyper-methylated"	NA	4	3	5
+"TCGA-CR-6470"	"Atypical"	"normal-like"	NA	3	3	5
+"TCGA-CR-6471"	"Basal"	"hyper-methylated"	NA	2	3	NA
+"TCGA-CR-6472"	"Atypical"	"hypo-methylated"	NA	4	1	NA
+"TCGA-CR-6473"	"Atypical"	"CpG island hyper-methylated"	NA	4	3	4
+"TCGA-CR-6474"	"Mesenchymal"	"normal-like"	NA	4	2	1
+"TCGA-CR-6477"	"Mesenchymal"	"normal-like"	NA	1	2	2
+"TCGA-CR-6478"	"Mesenchymal"	"hyper-methylated"	NA	3	2	4
+"TCGA-CR-6481"	"Atypical"	"hyper-methylated"	NA	4	3	5
+"TCGA-CR-6482"	"Atypical"	"hyper-methylated"	NA	5	3	5
+"TCGA-CR-6484"	"Mesenchymal"	"hyper-methylated"	NA	4	1	1
+"TCGA-CR-6487"	"Atypical"	"hyper-methylated"	NA	4	1	5
+"TCGA-CR-6488"	"Mesenchymal"	"hyper-methylated"	NA	4	2	1
+"TCGA-CR-6491"	"Basal"	"CpG island hyper-methylated"	NA	2	1	4
+"TCGA-CR-6492"	"Atypical"	"hyper-methylated"	NA	4	3	4
+"TCGA-CR-6493"	"Basal"	"CpG island hyper-methylated"	NA	1	1	4
+"TCGA-CR-7364"	"Atypical"	"hypo-methylated"	NA	1	2	2
+"TCGA-CR-7365"	"Basal"	"CpG island hyper-methylated"	NA	4	2	2
+"TCGA-CR-7367"	"Mesenchymal"	"CpG island hyper-methylated"	NA	4	1	1
+"TCGA-CR-7368"	"Atypical"	"hyper-methylated"	NA	5	1	5
+"TCGA-CR-7369"	"Atypical"	"hyper-methylated"	NA	2	1	2
+"TCGA-CR-7370"	"Classical"	"normal-like"	NA	5	2	5
+"TCGA-CR-7371"	"Atypical"	"normal-like"	NA	1	1	5
+"TCGA-CR-7372"	"Basal"	"hyper-methylated"	NA	2	2	2
+"TCGA-CR-7373"	"Basal"	"CpG island hyper-methylated"	NA	4	1	4
+"TCGA-CR-7374"	"Atypical"	"normal-like"	NA	1	2	5
+"TCGA-CR-7376"	"Mesenchymal"	"hyper-methylated"	NA	5	3	1
+"TCGA-CR-7377"	"Mesenchymal"	"hyper-methylated"	NA	4	1	1
+"TCGA-CR-7379"	"Basal"	"normal-like"	NA	2	2	4
+"TCGA-CR-7380"	"Basal"	"CpG island hyper-methylated"	NA	2	2	2
+"TCGA-CR-7382"	"Mesenchymal"	"hyper-methylated"	NA	5	3	1
+"TCGA-CR-7383"	"Mesenchymal"	"hyper-methylated"	NA	5	2	1
+"TCGA-CR-7385"	"Atypical"	"hyper-methylated"	NA	1	3	5
+"TCGA-CR-7386"	"Mesenchymal"	"hyper-methylated"	NA	4	3	1
+"TCGA-CR-7388"	"Atypical"	"normal-like"	NA	1	1	1
+"TCGA-CR-7389"	"Atypical"	"normal-like"	NA	1	1	2
+"TCGA-CR-7390"	"Classical"	"normal-like"	NA	2	2	2
+"TCGA-CR-7391"	"Atypical"	"normal-like"	NA	2	3	1
+"TCGA-CR-7392"	"Mesenchymal"	"hyper-methylated"	NA	5	3	1
+"TCGA-CR-7393"	"Atypical"	"normal-like"	NA	2	3	1
+"TCGA-CR-7394"	"Basal"	"hyper-methylated"	NA	2	3	1
+"TCGA-CR-7395"	"Basal"	"hyper-methylated"	NA	2	3	4
+"TCGA-CR-7397"	"Mesenchymal"	"normal-like"	NA	4	2	1
+"TCGA-CR-7398"	"Classical"	"hypo-methylated"	NA	1	1	5
+"TCGA-CR-7399"	"Atypical"	"normal-like"	NA	1	2	5
+"TCGA-CR-7401"	"Basal"	"hyper-methylated"	NA	5	1	2
+"TCGA-CR-7402"	"Atypical"	"hypo-methylated"	NA	3	1	5
+"TCGA-CR-7404"	"Atypical"	"hyper-methylated"	NA	5	3	5
+"TCGA-CV-5430"	"Atypical"	"normal-like"	3	4	2	5
+"TCGA-CV-5431"	"Mesenchymal"	"normal-like"	1	3	2	5
+"TCGA-CV-5432"	"Classical"	"normal-like"	3	1	2	2
+"TCGA-CV-5434"	"Mesenchymal"	"normal-like"	3	1	2	1
+"TCGA-CV-5435"	"Classical"	"CpG island hyper-methylated"	NA	1	2	2
+"TCGA-CV-5436"	"Basal"	"hyper-methylated"	3	1	3	4
+"TCGA-CV-5439"	"Basal"	"hyper-methylated"	1	4	1	4
+"TCGA-CV-5440"	"Classical"	"normal-like"	3	4	2	2
+"TCGA-CV-5441"	"Basal"	"hypo-methylated"	3	1	1	2
+"TCGA-CV-5442"	"Basal"	"CpG island hyper-methylated"	2	1	1	2
+"TCGA-CV-5443"	"Atypical"	"hyper-methylated"	1	3	3	5
+"TCGA-CV-5444"	"Mesenchymal"	"hyper-methylated"	4	4	1	1
+"TCGA-CV-5966"	"Mesenchymal"	"hyper-methylated"	2	4	1	4
+"TCGA-CV-5970"	"Basal"	"hyper-methylated"	4	2	1	2
+"TCGA-CV-5971"	"Mesenchymal"	"hyper-methylated"	1	5	3	1
+"TCGA-CV-5973"	"Basal"	"CpG island hyper-methylated"	4	2	2	2
+"TCGA-CV-5976"	"Basal"	"CpG island hyper-methylated"	4	4	1	4
+"TCGA-CV-5977"	"Basal"	"CpG island hyper-methylated"	2	4	1	4
+"TCGA-CV-5978"	"Classical"	"normal-like"	4	4	2	5
+"TCGA-CV-5979"	"Basal"	"hyper-methylated"	2	4	1	2
+"TCGA-CV-6003"	"Basal"	"hyper-methylated"	2	4	1	4
+"TCGA-CV-6433"	"Atypical"	"hyper-methylated"	3	3	3	5
+"TCGA-CV-6436"	"Basal"	"hyper-methylated"	1	2	3	4
+"TCGA-CV-6441"	"Atypical"	"CpG island hyper-methylated"	3	4	2	NA
+"TCGA-CV-6933"	"Classical"	"normal-like"	2	5	2	2
+"TCGA-CV-6934"	"Mesenchymal"	"hyper-methylated"	4	4	3	1
+"TCGA-CV-6935"	"Classical"	"normal-like"	3	4	2	2
+"TCGA-CV-6936"	"Classical"	"CpG island hyper-methylated"	1	4	2	5
+"TCGA-CV-6937"	"Classical"	"normal-like"	2	1	2	2
+"TCGA-CV-6938"	"Basal"	"hyper-methylated"	4	4	3	4
+"TCGA-CV-6939"	"Atypical"	"normal-like"	3	3	3	5
+"TCGA-CV-6940"	"Classical"	"hyper-methylated"	2	4	2	2
+"TCGA-CV-6941"	"Classical"	"hypo-methylated"	2	2	2	5
+"TCGA-CV-6942"	"Mesenchymal"	"CpG island hyper-methylated"	1	4	1	4
+"TCGA-CV-6943"	"Mesenchymal"	"hyper-methylated"	4	4	3	1
+"TCGA-CV-6945"	"Basal"	"normal-like"	1	4	2	4
+"TCGA-CV-6948"	"Atypical"	"normal-like"	3	1	2	NA
+"TCGA-CV-6950"	"Mesenchymal"	"hyper-methylated"	1	4	1	4
+"TCGA-CV-6951"	"Classical"	"normal-like"	2	4	1	2
+"TCGA-CV-6952"	"Basal"	"CpG island hyper-methylated"	2	2	3	4
+"TCGA-CV-6953"	"Basal"	"CpG island hyper-methylated"	2	2	3	4
+"TCGA-CV-6954"	"Basal"	"hypo-methylated"	3	2	1	2
+"TCGA-CV-6955"	"Atypical"	"hyper-methylated"	1	2	3	NA
+"TCGA-CV-6956"	"Basal"	"hypo-methylated"	4	2	2	2
+"TCGA-CV-6959"	"Basal"	"CpG island hyper-methylated"	1	4	1	4
+"TCGA-CV-6960"	"Classical"	"hypo-methylated"	2	1	1	2
+"TCGA-CV-6961"	"Classical"	"normal-like"	4	4	1	1
+"TCGA-CV-6962"	"Classical"	"normal-like"	1	1	2	2
+"TCGA-CV-7089"	"Atypical"	"hyper-methylated"	1	5	3	4
+"TCGA-CV-7090"	"Mesenchymal"	"hyper-methylated"	1	4	2	1
+"TCGA-CV-7091"	"Basal"	"hypo-methylated"	2	4	2	4
+"TCGA-CV-7095"	"Basal"	"CpG island hyper-methylated"	4	4	2	4
+"TCGA-CV-7097"	"Mesenchymal"	"CpG island hyper-methylated"	3	4	2	4
+"TCGA-CV-7099"	"Basal"	"CpG island hyper-methylated"	1	4	3	4
+"TCGA-CV-7100"	"Mesenchymal"	"normal-like"	1	4	3	4
+"TCGA-CV-7101"	"Atypical"	"hyper-methylated"	4	1	2	5
+"TCGA-CV-7102"	"Mesenchymal"	"hyper-methylated"	4	4	1	4
+"TCGA-CV-7103"	"Classical"	"normal-like"	4	5	2	2
+"TCGA-CV-7104"	"Mesenchymal"	"hyper-methylated"	4	4	1	1
+"TCGA-CV-7177"	"Classical"	"normal-like"	2	5	2	2
+"TCGA-CV-7178"	"Mesenchymal"	"hyper-methylated"	2	4	2	1
+"TCGA-CV-7180"	"Basal"	"hyper-methylated"	1	2	2	4
+"TCGA-CV-7183"	"Basal"	"CpG island hyper-methylated"	2	2	3	2
+"TCGA-CV-7235"	"Mesenchymal"	"normal-like"	4	4	2	1
+"TCGA-CV-7236"	"Mesenchymal"	"hyper-methylated"	4	5	1	2
+"TCGA-CV-7238"	"Mesenchymal"	"hyper-methylated"	2	5	3	1
+"TCGA-CV-7242"	"Atypical"	"hypo-methylated"	3	3	2	5
+"TCGA-CV-7243"	"Basal"	"CpG island hyper-methylated"	4	2	1	2
+"TCGA-CV-7245"	"Classical"	"hypo-methylated"	2	1	2	4
+"TCGA-CV-7247"	"Classical"	"normal-like"	1	5	2	4
+"TCGA-CV-7248"	"Atypical"	"normal-like"	3	5	1	5
+"TCGA-CV-7250"	"Atypical"	"hypo-methylated"	2	2	3	2
+"TCGA-CV-7252"	"Basal"	"CpG island hyper-methylated"	1	5	3	4
+"TCGA-CV-7253"	"Classical"	"hypo-methylated"	1	2	1	2
+"TCGA-CV-7254"	"Mesenchymal"	"normal-like"	1	5	2	1
+"TCGA-CV-7255"	"Basal"	"hyper-methylated"	2	1	1	2
+"TCGA-CV-7261"	"Classical"	"normal-like"	3	1	2	5
+"TCGA-CV-7263"	"Mesenchymal"	"CpG island hyper-methylated"	4	5	1	5
+"TCGA-CV-7406"	"Atypical"	"normal-like"	1	4	3	2
+"TCGA-CV-7407"	"Atypical"	"normal-like"	4	4	2	NA
+"TCGA-CV-7410"	"Mesenchymal"	"hyper-methylated"	4	4	3	1
+"TCGA-CV-7411"	"Basal"	"hyper-methylated"	4	2	3	2
+"TCGA-CV-7413"	"Mesenchymal"	"hyper-methylated"	2	4	1	2
+"TCGA-CV-7414"	"Atypical"	"hyper-methylated"	4	4	1	2
+"TCGA-CV-7415"	"Mesenchymal"	"normal-like"	3	4	1	1
+"TCGA-CV-7416"	"Mesenchymal"	"hyper-methylated"	2	1	2	2
+"TCGA-CV-7418"	"Classical"	"normal-like"	3	1	2	NA
+"TCGA-CV-7421"	"Classical"	"normal-like"	4	4	2	2
+"TCGA-CV-7422"	"Classical"	"normal-like"	3	4	2	5
+"TCGA-CV-7423"	"Basal"	"hyper-methylated"	2	2	2	2
+"TCGA-CV-7424"	"Classical"	"normal-like"	3	4	2	5
+"TCGA-CV-7427"	"Basal"	"CpG island hyper-methylated"	2	4	3	4
+"TCGA-CV-7429"	"Mesenchymal"	"normal-like"	3	5	1	4
+"TCGA-CV-7430"	"Classical"	"normal-like"	2	2	2	2
+"TCGA-CV-7432"	"Basal"	"CpG island hyper-methylated"	1	5	1	4
+"TCGA-CV-7433"	"Mesenchymal"	"normal-like"	3	5	1	1
+"TCGA-CV-7434"	"Basal"	"CpG island hyper-methylated"	2	5	1	4
+"TCGA-CV-7435"	"Mesenchymal"	"hypo-methylated"	4	5	2	1
+"TCGA-CV-7437"	"Classical"	"normal-like"	3	5	2	2
+"TCGA-CV-7438"	"Mesenchymal"	"hyper-methylated"	4	5	1	1
+"TCGA-CV-7440"	"Classical"	"hypo-methylated"	1	5	1	4
+"TCGA-CX-7082"	"Classical"	"normal-like"	NA	1	1	2
+"TCGA-CX-7085"	"Mesenchymal"	"hyper-methylated"	2	2	3	1
+"TCGA-CX-7086"	"Atypical"	"hypo-methylated"	2	1	2	2
+"TCGA-CX-7219"	"Mesenchymal"	"normal-like"	1	2	1	1
+"TCGA-D6-6515"	"Mesenchymal"	"hyper-methylated"	1	4	3	1
+"TCGA-D6-6516"	"Basal"	"hyper-methylated"	2	4	1	4
+"TCGA-D6-6517"	"Basal"	"hyper-methylated"	2	4	1	4
+"TCGA-D6-6823"	"Classical"	"hypo-methylated"	1	1	1	4
+"TCGA-D6-6824"	"Atypical"	"normal-like"	2	4	3	1
+"TCGA-D6-6825"	"Basal"	"hyper-methylated"	2	2	1	1
+"TCGA-D6-6826"	"Mesenchymal"	"hyper-methylated"	2	5	1	1
+"TCGA-DQ-5624"	"Basal"	"hyper-methylated"	NA	4	1	2
+"TCGA-DQ-5625"	"Basal"	"hyper-methylated"	NA	4	1	1
+"TCGA-DQ-5629"	"Classical"	"normal-like"	NA	4	2	2
+"TCGA-DQ-5630"	"Mesenchymal"	"hyper-methylated"	NA	4	3	1
+"TCGA-DQ-5631"	"Mesenchymal"	"CpG island hyper-methylated"	NA	1	2	2
+"TCGA-DQ-7588"	"Basal"	"normal-like"	NA	4	2	4
+"TCGA-DQ-7591"	"Atypical"	"normal-like"	3	1	3	5
+"TCGA-DQ-7592"	"Basal"	"hyper-methylated"	1	4	2	2
+"TCGA-F7-7848"	"Atypical"	"hypo-methylated"	NA	5	1	5
+"TCGA-H7-7774"	"Atypical"	"CpG island hyper-methylated"	NA	2	3	NA
+"TCGA-HD-7229"	"Basal"	"CpG island hyper-methylated"	NA	4	1	4
+"TCGA-HD-7753"	"Basal"	"hyper-methylated"	NA	4	2	2
+"TCGA-HD-7754"	"Atypical"	"hypo-methylated"	NA	1	3	5
+"TCGA-HD-7831"	"Mesenchymal"	"normal-like"	NA	5	1	1
+"TCGA-HD-7832"	"Basal"	"CpG island hyper-methylated"	NA	4	3	4
+"TCGA-IQ-7630"	"Basal"	"CpG island hyper-methylated"	1	4	1	4
+"TCGA-IQ-7631"	"Mesenchymal"	"hypo-methylated"	NA	1	3	2
+"TCGA-IQ-7632"	"Basal"	"hyper-methylated"	2	2	1	4

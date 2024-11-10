@@ -1,0 +1,4 @@
+cluster	Total Mutations	Average Mutations	Total Patients
+1	3083	21.9	141
+2	3808	25.2	151
+3	4213	27.2	155
