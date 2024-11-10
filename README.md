@@ -15,7 +15,6 @@
   - [Mutation Analysis](#mutation-analysis)
   - [Stage Analysis](#stage-analysis)
   - [Immune Analysis](#immune-analysis)
-- [License](#license)
 
 ---
 
@@ -86,9 +85,14 @@ All input data and analysis scripts are included in the cloned repository.
 
 - **Output**: Results are saved in the `output/clustering_results` directory.
   1. **Classification File**
+
+  
      <img src="https://github.com/user-attachments/assets/dac1096d-e61a-40c3-8c88-3ab067632922"/>
-  2. **PCA Plots**
-     <img src="https://github.com/user-attachments/assets/4058aeb4-b72f-4ac3-819c-3dbe41bea426"/>
+     
+  1. **PCA Plots**
+
+
+  <img src="https://github.com/user-attachments/assets/4058aeb4-b72f-4ac3-819c-3dbe41bea426" width="500"/>
 
 ### Step 5: Further Analysis Selection
 - Choose the type of analysis to perform:
@@ -109,7 +113,8 @@ All input data and analysis scripts are included in the cloned repository.
 - **Output**: Results are saved in the `output/survival_analysis` directory.
 
   **KMeans Survival Plot**:
-  <img src="https://github.com/user-attachments/assets/3a4d8816-a7cb-4851-9d90-21dd24b43b41" width="500"/>
+
+<img src="https://github.com/user-attachments/assets/3a4d8816-a7cb-4851-9d90-21dd24b43b41" width="500"/>
 
   **Interpretation**:
   1. **Cluster-Specific Survival Trends**: Each cluster shows unique survival curves with varying survival probabilities.
@@ -122,16 +127,18 @@ All input data and analysis scripts are included in the cloned repository.
 - **Input Data**: Identified clusters and gene mutation data.
 - **Analyses Performed**:
   1. **Chi-Square Test**: Significance test for each gene between pairs of clusters.
-     <img src="https://github.com/user-attachments/assets/df9509f8-8255-4b23-ae79-98570b8f8038"/>
+     
+        <img src="https://github.com/user-attachments/assets/df9509f8-8255-4b23-ae79-98570b8f8038"/>
 
-     **Interpretation**: Example - For gene CPHL1P, a p-value of 0.99941 between clusters 1 and 2 indicates a low significance difference.
-
+      **Interpretation**: Example - For gene CPHL1P, a p-value of 0.99941 between clusters 1 and 2 indicates a low significance difference.
+ 
   2. **Top 5 Significant Genes**: Genes with the lowest p-values between cluster pairs.
-     <img src="https://github.com/user-attachments/assets/341c9165-eae5-41c0-bc94-6eb21ac6b4f0"/>
+     <img src="https://github.com/user-attachments/assets/341c9165-eae5-41c0-bc94-6eb21ac6b4f0"width="500"/>
 
-     **Interpretation**: Genes such as BMP8A, FCGR3B, REEP6, IGKV1D-12, and GNG4 show the lowest p-values, meaning they are highly significant between cluster pairs 1 and 3.
+     **Interpretation**: Genes such as BMP8A, FCGR3B, REEP6, IGKV1D-12, and GNG4 show the lowest p-values, meaning they are highly significant 
+        between cluster pairs 1 and 3.
 
-  3. **Cluster Similarity**: Correlation matrix shows mutation similarity between clusters.
+  4. **Cluster Similarity**: Correlation matrix shows mutation similarity between clusters.
      <img src="https://github.com/user-attachments/assets/d664de49-33df-433e-835d-eaa9f5645762" width="500"/>
 
      **Interpretation**:
@@ -139,12 +146,12 @@ All input data and analysis scripts are included in the cloned repository.
      - **Statistical Significance**: Extremely low p-values (e.g., 1.000e-100) indicate high statistical significance.
      - **Cluster Similarities**: Clusters 1 and 3, as well as clusters 2 and 3, show high correlation values (0.871 and 0.749), suggesting similar mutation patterns.
 
-  4. **Total Mutations per Cluster**: Shows total mutations for each cluster.
+  5. **Total Mutations per Cluster**: Shows total mutations for each cluster.
      <img src="https://github.com/user-attachments/assets/beb06da6-211a-4c5e-9623-f7d559f8edf1" width="500"/>
 
      **Interpretation**: Distinct mutation counts suggest significant differences between clusters based on mutation frequency.
 
-  5. **Genes vs. P-Values**: Displays gene significance across cluster pairs.
+  6. **Genes vs. P-Values**: Displays gene significance across cluster pairs.
      <img src="https://github.com/user-attachments/assets/f0950ee1-f3e6-4ead-8a1c-8cc577327417" width="500"/>
 
      **Interpretation**: Few genes in clusters 1 and 2 (shown in red) have a p-value < 0.05, indicating low evidence for significant differences between these clusters.
@@ -155,28 +162,17 @@ All input data and analysis scripts are included in the cloned repository.
   
   <img src="https://github.com/user-attachments/assets/8f6e7999-3961-4a60-808c-24177edc768f" width="450"/>
 
-  **Interpretation**: The plot shows how the stage distribution varies across clusters. Such insights can inform stage-based cluster analysis.
+  **Interpretation**: The plot shows how the percentage of patients with different cancer stages distribution varies across clusters. Such insights can help to decide the more aggressive treatment strategies for a particular cluster patients. 
 
 ### Immune Analysis
 - **Input Data**: Immune cell data and cluster IDs.
 - **Output**: Bar plots showing immune-related characteristics of each cluster.
-  <img src="https://github.com/user-attachments/assets/c7982f96-8a10-4ca9-a299-cb1c5a32fd33" width="500"/>
+<img src="https://github.com/user-attachments/assets/9e649fda-694e-4f5b-9230-f0f8715a4f99" width="500"/>
 
----
+  **Interpretation**:
+   - **Strong Similarity Between Clusters**: The R-values are very high (close to 1) for all cluster comparisons, indicating a strong similarity in immune scores between the clusters. This suggests that these clusters may have similar immune characteristics.
 
-## License
-C3MOD is licensed under the MIT License. For full terms and conditions, please refer to the [LICENSE](LICENSE) file in the repository.
-
----
-
-## Contributing
-We welcome contributions from the community! Please fork the repository, make your changes, and submit a pull request.
+   - **High Statistical Significance**: The extremely low p-values (e.g., 9.446e-179) show that these similarities are statistically significant, meaning the correlation results are highly reliable and unlikely to be due to random chance.
 
 ## Acknowledgments
 C3MOD leverages cutting-edge clustering techniques, genomic data processing, and statistical analysis to identify clinically relevant patterns in cancer data. Special thanks to all contributors and collaborators.
-
----  
-
-## Report Issue
-In case of errors or improvements, please raise an issue via GitHub.
-
