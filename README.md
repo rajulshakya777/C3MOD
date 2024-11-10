@@ -42,7 +42,7 @@ you can decide by your own choice also
   
 <img src="output/recommended_K/KMeans_recommended_k_plots.png" width="450"/>
 
-<img src="https://github.com/user-attachments/assets/f970c922-2773-4d0f-8333-0ceba1214784" width="400"/>
+<img src="https://github.com/user-attachments/assets/4523b77f-0ed8-4e1f-a09c-a69aeb51f45c" width="300" height="300"/>
 
 Step 4: User Input: Algorithm Selection and K (number of cluster)
 
