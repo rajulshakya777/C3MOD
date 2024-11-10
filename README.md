@@ -8,6 +8,9 @@ This tool can be download from https://github.com/rajulshakya777/C3MOD.git
 
 Recommended python version is : >=3.10
 
+# Input Data
+All the input data will be clonned from the above repository along with all the analysis  scripts
+
 # Steps for Running C3MOD
 1. Clone the github repositry using 'git clone https://github.com/rajulshakya777/C3MOD.git' in your Local machine.
 2. Create a virtual python environment : python3 -m venv <env>
