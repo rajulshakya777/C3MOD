@@ -174,7 +174,6 @@ All input data and analysis scripts are included in the cloned repository.
 ### Immune Analysis
 - **Input Data**: Immune cell data and cluster IDs.
 - **Output**: Bar plots showing immune-related characteristics of each cluster.
-  
 <img src="https://github.com/user-attachments/assets/9e649fda-694e-4f5b-9230-f0f8715a4f99" width="500"/>
 
   **Interpretation**:
