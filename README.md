@@ -47,7 +47,7 @@ All input data and analysis scripts are included in the cloned repository.
     <img src="https://img.youtube.com/vi/QAPCT9JrIp4/0.jpg" alt="C3MOD: Cancer Clustering & Characterization Tutorial" width="600" height="340">
 </a>
 
-*Click the image above to watch the tutorial video for C3MOD: Cancer Clustering & Characterization Using Multi-Omics Data in Python.*
+*Click the image above to watch the step-by-step guide to run C3MOD python tool*
 
 
 ## Example 1: Run `main.py`script
