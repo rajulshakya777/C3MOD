@@ -39,7 +39,7 @@
 ## Input Data
 All input data and analysis scripts are included in the cloned repository.
 
-# Running C3MOD
+## Running C3MOD
 
 ## Example 1: Run `main.py`script
 
