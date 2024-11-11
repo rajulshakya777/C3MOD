@@ -139,7 +139,7 @@ All input data and analysis scripts are included in the cloned repository.
       **Interpretation**: Example - For gene CPHL1P, a p-value of 0.99941 between clusters 1 and 2 indicates a low significance difference.
  
   2. **Top 5 Significant Genes**: Genes with the lowest p-values between cluster pairs.
-     <img src="https://github.com/user-attachments/assets/341c9165-eae5-41c0-bc94-6eb21ac6b4f0"width="500"/>
+     <img src="https://github.com/user-attachments/assets/341c9165-eae5-41c0-bc94-6eb21ac6b4f0" width="500"/>
 
      **Interpretation**: Genes such as BMP8A, FCGR3B, REEP6, IGKV1D-12, and GNG4 show the lowest p-values, meaning they are highly significant 
         between cluster pairs 1 and 3.
