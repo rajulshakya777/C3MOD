@@ -166,7 +166,7 @@ All input data and analysis scripts are included in the cloned repository.
 - **Objective**: Show stage distribution among patients across clusters.
 - **Input Data**: Stage data and identified clusters.
   
-  <img src="https://github.com/user-attachments/assets/8f6e7999-3961-4a60-808c-24177edc768f" width="450"/>
+  <img src="https://github.com/user-attachments/assets/8f6e7999-3961-4a60-808c-24177edc768f" />
 
   **Interpretation**: The plot shows how the percentage of patients with different cancer stages distribution varies across clusters. Such insights can help to decide the more aggressive treatment strategies for a particular cluster patients. 
 
