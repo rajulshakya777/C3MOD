@@ -175,4 +175,4 @@ All input data and analysis scripts are included in the cloned repository.
    - **High Statistical Significance**: The extremely low p-values (e.g., 9.446e-179) show that these similarities are statistically significant, meaning the correlation results are highly reliable and unlikely to be due to random chance.
 
 ## Acknowledgments
-C3MOD leverages cutting-edge clustering techniques, genomic data processing, and statistical analysis to identify clinically relevant patterns in cancer data. Special thanks to all contributors and collaborators.
+C3MOD leverages cutting-edge clustering techniques, genomic data processing, and statistical analysis to identify clinically relevant patterns in cancer data.
