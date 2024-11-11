@@ -50,7 +50,7 @@ All input data and analysis scripts are included in the cloned repository.
 *Click the image above to watch the step-by-step guide to run C3MOD python tool*
 
 
-## Example 1: Run `main.py`script
+## Run `main.py`script
 
 ### Step 1: Python and R Packages Installation
 - Install all required Python and R packages necessary for the analysis.
