@@ -32,9 +32,6 @@
 3. Activate the virtual environment:
    ```bash
    source <env>/bin/activate
-4. Run the main script:
-   ```bash
-   python c3mod_lib/main.py
 
 ## Input Data
 All input data and analysis scripts are included in the cloned repository.
