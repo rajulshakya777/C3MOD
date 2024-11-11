@@ -39,7 +39,11 @@
 ## Input Data
 All input data and analysis scripts are included in the cloned repository.
 
-## Running C3MOD
+# Running C3MOD
+
+Step-by-Step guide to Run C3MOD tool
+
+[![C3MOD: Cancer Clustering & Characterization Tutorial](https://img.youtube.com/vi/QAPCT9JrIp4/0.jpg)](https://www.youtube.com/watch?v=QAPCT9JrIp4)
 
 ## Example 1: Run `main.py`script
 
