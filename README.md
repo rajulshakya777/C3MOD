@@ -165,14 +165,16 @@ All input data and analysis scripts are included in the cloned repository.
 ### Stage Analysis
 - **Objective**: Show stage distribution among patients across clusters.
 - **Input Data**: Stage data and identified clusters.
-  
-  <img src="https://github.com/user-attachments/assets/8f6e7999-3961-4a60-808c-24177edc768f" />
+
+
+  <img src="https://github.com/user-attachments/assets/3379ef90-5bcd-4f85-b603-d53aecb8bc56" width="800"/>
 
   **Interpretation**: The plot shows how the percentage of patients with different cancer stages distribution varies across clusters. Such insights can help to decide the more aggressive treatment strategies for a particular cluster patients. 
 
 ### Immune Analysis
 - **Input Data**: Immune cell data and cluster IDs.
 - **Output**: Bar plots showing immune-related characteristics of each cluster.
+- 
 <img src="https://github.com/user-attachments/assets/9e649fda-694e-4f5b-9230-f0f8715a4f99" width="500"/>
 
   **Interpretation**:
