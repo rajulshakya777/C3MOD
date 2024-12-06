@@ -148,6 +148,7 @@ def main():
     choice = get_user_choice()
 
     # Run chosen analysis jobs based on user choice
+    step += 1
     if choice == "5":
         # Run all further analysis jobs
         for key, analysis_job in analysis_jobs.items():

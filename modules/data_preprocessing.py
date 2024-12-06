@@ -59,22 +59,57 @@ def get_cancer_type():
         'MESO', 'PAAD', 'PCPG', 'PRAD', 'READ', 'SARC', 'STAD', 'TGCT', 'THCA', 
         'THYM', 'UCEC', 'UCS', 'UVM'
     ]
+
+    cancer_names = {
+        'ACC': 'Adrenocortical carcinoma',
+        'BRCA': 'Breast invasive carcinoma',
+        'BLCA': 'Bladder Urothelial Carcinoma',
+        'CESC': 'Cervical squamous cell carcinoma and endocervical adenocarcinoma',
+        'CHOL': 'Cholangiocarcinoma',
+        'COAD': 'Colon adenocarcinoma',
+        'DLBC': 'Lymphoid Neoplasm Diffuse Large B-cell Lymphoma',
+        'ESCA': 'Esophageal carcinoma',
+        'GBM': 'Glioblastoma multiforme',
+        'HNSC': 'Head and Neck squamous cell carcinoma',
+        'KICH': 'Kidney Chromophobe',
+        'KIRC': 'Kidney renal clear cell carcinoma',
+        'KIRP': 'Kidney renal papillary cell carcinoma',
+        'LAML': 'Acute Myeloid Leukemia',
+        'LGG': 'Brain Lower Grade Glioma',
+        'LIHC': 'Liver hepatocellular carcinoma',
+        'LUAD': 'Lung adenocarcinoma',
+        'LUSC': 'Lung squamous cell carcinoma',
+        'MESO': 'Mesothelioma',
+        'PAAD': 'Pancreatic adenocarcinoma',
+        'PCPG': 'Pheochromocytoma and Paraganglioma',
+        'PRAD': 'Prostate adenocarcinoma',
+        'READ': 'Rectum adenocarcinoma',
+        'SARC': 'Sarcoma',
+        'STAD': 'Stomach adenocarcinoma',
+        'TGCT': 'Testicular Germ Cell Tumors',
+        'THCA': 'Thyroid carcinoma',
+        'THYM': 'Thymoma',
+        'UCEC': 'Uterine Corpus Endometrial Carcinoma',
+        'UCS': 'Uterine Carcinosarcoma',
+        'UVM': 'Uveal Melanoma'
+    }
     
     print(f"{BOLD}Select the cancer dataset:{RESET}")
     for idx, cancer_type in enumerate(cancer_types, 1):
-        print(f"{idx}. TCGA-{cancer_type}")
+        print(f"{idx}. TCGA-{cancer_type:<4} - {cancer_names[cancer_type]}")
 
     while True:
         try:
             choice = int(input("Enter the number corresponding to your cancer type choice: "))
             if 1 <= choice <= len(cancer_types):
                 selected_cancer_type = cancer_types[choice - 1]
-                print(f"{BOLD}🔍 Selected Cancer Type:{RESET} TCGA-{selected_cancer_type}")
+                print(f"{BOLD}🔍 Selected Cancer Type:{RESET} TCGA-{selected_cancer_type:<4} - {cancer_names[selected_cancer_type]}")
                 return selected_cancer_type
             else:
                 print(f"{YELLOW}⚠️ Invalid choice. Please select a number between 1 and {len(cancer_types)}.{RESET}")
         except ValueError:
             print(f"{YELLOW}⚠️ Invalid input. Please enter a valid number.{RESET}")
+
 
 # Main script logic
 def main():
@@ -123,7 +158,7 @@ def main():
     # Save X_scaled, pca_df, and cancer_type
     with open(output_path, 'wb') as f:
         pickle.dump((X_scaled, pca_df, cancer_type), f)
-    print(f"{CYAN}📈 {BOLD}Results:{RESET} {YELLOW}All results and plots saved to recommended_K folder.{RESET}")
+    # print(f"{CYAN}📈 {BOLD}Results:{RESET} {YELLOW}All results and plots saved to recommended_K folder.{RESET}")
 
 if __name__ == "__main__":
     main()

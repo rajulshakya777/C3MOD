@@ -457,7 +457,7 @@ def select_algorithm():
         except ValueError:
             print(f"{YELLOW}⚠️ Invalid input. Please enter a valid number.{RESET}")
 
-    print(f"{CYAN}📈 {BOLD}Results:{RESET} {YELLOW}All WCSS and elbow method plots saved to recommended_K folder.{RESET}")
+    print(f"{CYAN}📈 {BOLD}Results:{RESET} {YELLOW}All WCSS and Silhouette score plots saved to recommended_K folder.{RESET}")
 
 if __name__ == "__main__":
     select_algorithm()
