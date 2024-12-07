@@ -64,7 +64,39 @@ To perform analysis on any other cancer type
 ### Step 2: Data Pre-Processing
 - **User Input**: Select cancer data type from the menu.
 - **Available Cancer Data**: 
-  `['TCGA-ACC', 'TCGA-BLCA', 'TCGA-BRCA', 'TCGA-CESC', 'TCGA-CHOL', 'TCGA-COAD', 'TCGA-DLBC', 'TCGA-ESCA', 'TCGA-GBM', 'TCGA-HNSC', 'TCGA-KICH', 'TCGA-KIRC', 'TCGA-KIRP', 'TCGA-LAML', 'TCGA-LGG', 'TCGA-LIHC', 'TCGA-LUAD', 'TCGA-LUSC', 'TCGA-MESO', 'TCGA-PAAD', 'TCGA-PCPG', 'TCGA-PRAD', 'TCGA-READ', 'TCGA-SARC', 'TCGA-STAD', 'TCGA-TGCT', 'TCGA-THCA', 'TCGA-THYM', 'TCGA-UCEC', 'TCGA-UCS', 'TCGA-UVM']`
+  `[
+    'TCGA-ACC - Adrenocortical carcinoma',
+    'TCGA-BLCA - Bladder Urothelial Carcinoma',
+    'TCGA-BRCA - Breast invasive carcinoma',
+    'TCGA-CESC - Cervical squamous cell carcinoma and endocervical adenocarcinoma',
+    'TCGA-CHOL - Cholangiocarcinoma',
+    'TCGA-COAD - Colon adenocarcinoma',
+    'TCGA-DLBC - Lymphoid Neoplasm Diffuse Large B-cell Lymphoma',
+    'TCGA-ESCA - Esophageal carcinoma',
+    'TCGA-GBM - Glioblastoma multiforme',
+    'TCGA-HNSC - Head and Neck squamous cell carcinoma',
+    'TCGA-KICH - Kidney Chromophobe',
+    'TCGA-KIRC - Kidney renal clear cell carcinoma',
+    'TCGA-KIRP - Kidney renal papillary cell carcinoma',
+    'TCGA-LAML - Acute Myeloid Leukemia',
+    'TCGA-LGG - Brain Lower Grade Glioma',
+    'TCGA-LIHC - Liver hepatocellular carcinoma',
+    'TCGA-LUAD - Lung adenocarcinoma',
+    'TCGA-LUSC - Lung squamous cell carcinoma',
+    'TCGA-MESO - Mesothelioma',
+    'TCGA-PAAD - Pancreatic adenocarcinoma',
+    'TCGA-PCPG - Pheochromocytoma and Paraganglioma',
+    'TCGA-PRAD - Prostate adenocarcinoma',
+    'TCGA-READ - Rectum adenocarcinoma',
+    'TCGA-SARC - Sarcoma',
+    'TCGA-STAD - Stomach adenocarcinoma',
+    'TCGA-TGCT - Testicular Germ Cell Tumors',
+    'TCGA-THCA - Thyroid carcinoma',
+    'TCGA-THYM - Thymoma',
+    'TCGA-UCEC - Uterine Corpus Endometrial Carcinoma',
+    'TCGA-UCS - Uterine Carcinosarcoma',
+    'TCGA-UVM - Uveal Melanoma'
+]`
 - **Processing Steps**: Data cleaning, standardization, PCA for dimensionality reduction, and data integration.
 - **Output**: Summary message confirming pre-processing completion.
 
