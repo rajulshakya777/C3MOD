@@ -13,7 +13,6 @@ BOLD = "\033[1m"
 RESET = "\033[0m"
 GREEN = "\033[1;32m"
 
-
 CHECK_EMOJI = f"{GREEN}✔{RESET}"
 # Global variables
 X_scaled = None
