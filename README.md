@@ -34,7 +34,9 @@
    source <env>/bin/activate
 
 ## Input Data
-All input data and analysis scripts are included in the cloned repository.
+Sample Input data for TCGA-LUAD (Lung adenocarcinoma) is given in data/input_data/TCGA-data directory.
+To perform analysis on any other cancer type 
+1. Level-3 TCGA Cancer data can be downloaded from - https://xenabrowser.net/datapages
 
 # Running C3MOD
 
