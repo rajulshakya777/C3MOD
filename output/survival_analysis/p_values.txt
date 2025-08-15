@@ -1,2 +1,0 @@
-methods	K_3_
-FuzzyCMeans	0.0130402844846469

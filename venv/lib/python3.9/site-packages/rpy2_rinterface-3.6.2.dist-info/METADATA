@@ -1,0 +1,46 @@
+Metadata-Version: 2.4
+Name: rpy2-rinterface
+Version: 3.6.2
+Summary: Low-level interface from Python to the R.
+Author-email: Laurent Gautier <lgautier@gmail.com>
+License: GPL-2.0-or-later
+Project-URL: Homepage, https://rpy2.github.io
+Project-URL: Documentation, https://rpy2.github.io/doc.html
+Project-URL: Source, https://github.com/rpy2/rpy2
+Project-URL: Tracker, https://github.com/rpy2/rpy2/issue
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: cffi>=1.15.1
+Requires-Dist: packaging; platform_system == "Windows"
+Requires-Dist: backports.zoneinfo; python_version < "3.9"
+Provides-Extra: doc
+Requires-Dist: ipykernel; extra == "doc"
+Requires-Dist: jupytext; extra == "doc"
+Requires-Dist: multipledispatch; extra == "doc"
+Requires-Dist: nbconvert; extra == "doc"
+Requires-Dist: pygraphviz; extra == "doc"
+Requires-Dist: sphinx; extra == "doc"
+Provides-Extra: test
+Requires-Dist: pytest>=8; extra == "test"
+Requires-Dist: coverage; extra == "test"
+Requires-Dist: pytest-cov; extra == "test"
+Provides-Extra: types
+Requires-Dist: mypy; extra == "types"
+Requires-Dist: packaging; extra == "types"
+Requires-Dist: pandas-stubs; extra == "types"
+Requires-Dist: types-Pygments; extra == "types"
+Requires-Dist: types-tzlocal; extra == "types"
+Provides-Extra: all
+Requires-Dist: pytest>=8; extra == "all"
+Requires-Dist: coverage; extra == "all"
+Requires-Dist: pytest-cov; extra == "all"

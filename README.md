@@ -224,3 +224,40 @@ To perform analysis on any other cancer type
 
 ## Acknowledgments
 C3MOD leverages cutting-edge clustering techniques, genomic data processing, and statistical analysis to identify clinically relevant patterns in cancer data.
+
+---
+
+## Streamlit Web App (Beta)
+
+An initial Streamlit interface (`streamlit_app.py`) is included to run the pipeline via a browser instead of interactive terminal prompts.
+
+### Quick Start
+
+```bash
+pip install -r requirements.txt
+streamlit run streamlit_app.py
+```
+
+Then in the browser:
+1. Select a cancer type and run preprocessing.
+2. Choose clustering algorithms and K (adjust SNF params if selected).
+3. Run downstream analyses (survival, mutation, stage, immune).
+4. Browse & download generated result files.
+
+### R Dependencies
+SNF + survival analysis require these R packages (install in an R session):
+```r
+install.packages(c('SNFtool','survival','survminer','ggplot2','cowplot','dplyr','stringr'))
+```
+
+Ensure `rpy2` uses the same R. If needed set (before running Streamlit):
+```bash
+export R_HOME=$(R RHOME)
+```
+
+### Roadmap
+* Return in-memory DataFrames / plots instead of relying on disk writes.
+* Cache heavy computations (SNF, PCA) across UI interactions.
+* Add parameter selection for downstream analyses.
+* Add Dockerfile for reproducible deployment.
+

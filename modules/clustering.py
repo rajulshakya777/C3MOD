@@ -5,13 +5,21 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans, AgglomerativeClustering, SpectralClustering
+from sklearn.metrics import silhouette_score, calinski_harabasz_score, davies_bouldin_score
 from sklearn.mixture import GaussianMixture
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.base import BaseEstimator, ClusterMixin
 import skfuzzy as fuzz
 import warnings
-import rpy2.robjects as robjects
+from typing import Dict, List, Optional, Tuple
+try:
+    import rpy2.robjects as robjects  # type: ignore
+    R_AVAILABLE = True
+except Exception as e:  # ImportError or other dynamic load errors
+    robjects = None  # type: ignore
+    R_AVAILABLE = False
+    _R_IMPORT_ERROR = e
 
 # Color and style codes
 YELLOW = "\033[1;33m"
@@ -68,6 +76,8 @@ def get_float_input(prompt, min_value, max_value):
 
 
 def run_snf(n_clusters, cancer_type):
+    if not R_AVAILABLE:
+        raise RuntimeError(f"SNF requires R (rpy2 not available): {_R_IMPORT_ERROR}")
 
     selected_cancer = cancer_type
     K = n_clusters
@@ -252,6 +262,96 @@ def run_snf(n_clusters, cancer_type):
     print(f"{BOLD}{BLUE}📊 Analysis Summary:{RESET}")
     print(f"{CYAN}📈 {BOLD}Results:{RESET} {YELLOW}All Clustering results saved to clustering_results folder.{RESET}")
 
+
+def run_snf_non_interactive(n_clusters: int, cancer_type: str, n_neighbour: int = 20, alpha: float = 0.5, T: int = 15):
+        """Run SNF without any interactive prompts (for Streamlit / API usage)."""
+        if not R_AVAILABLE:
+                raise RuntimeError(f"SNF requires R (rpy2 not available): {_R_IMPORT_ERROR}")
+        K = n_clusters
+        r_code = f"""
+        invisible(capture.output({{
+            library(SNFtool)
+            library(dplyr)
+            library(stringr)
+            library(ggplot2)
+        }}, type = "message"))
+        options(warn = -1)
+
+        if (.Platform$OS.type == "windows") {{
+            memory.limit(size = 50 * 1024)
+        }} else {{
+            Sys.setenv(R_MAX_VSIZE = "50GB")
+        }}
+
+        cancers <- list("{cancer_type}")
+        maxK = {K}
+        n_neighbour = {n_neighbour}
+        alpha = {alpha}
+        T = {T}
+
+        standardNormalization = function(x) {{
+            x = as.matrix(x)
+            mean = apply(x, 2, mean)
+            sd = apply(x, 2, sd)
+            sd[sd == 0] = 1
+            xNorm = t((t(x) - mean) / sd)
+            return(xNorm)
+        }}
+
+        for (project in cancers) {{
+            tumor_type = project
+            file_miRNA <- file.path("data", "input_data", "TCGA_data", tumor_type, paste(tumor_type, "miRNA_GANfeature1.txt", sep = "_"))
+            miRNA <- read.csv(file_miRNA, header = TRUE, sep="\t", row.names=1, stringsAsFactors = FALSE, check.names = FALSE)
+            data_miRNA <- data.frame(t(as.matrix(miRNA)))
+            file_mRNA <- file.path("data", "input_data", "TCGA_data", tumor_type, paste(tumor_type, "mRNA_GANfeature1.txt", sep = "_"))
+            mRNA <- read.csv(file_mRNA, header = TRUE, sep="\t", row.names=1, stringsAsFactors = FALSE, check.names = FALSE)
+            data_mRNA <- data.frame(t(as.matrix(mRNA)))
+            file_methyl <- file.path("data", "input_data", "TCGA_data", tumor_type, paste(tumor_type, "methyl_GANfeature1.txt", sep = "_"))
+            methyl <- read.csv(file_methyl, header = TRUE, sep="\t", row.names=1, stringsAsFactors = FALSE, check.names = FALSE)
+            data_methyl <- data.frame(t(as.matrix(methyl)))
+
+            data_miRNA_Norm = lapply(data_miRNA, standardNormalization)
+            data_mRNA_Norm = lapply(data_mRNA, standardNormalization)
+            data_methyl_Norm = lapply(data_methyl, standardNormalization)
+            dist_miRNA = lapply(as.matrix(data_miRNA_Norm), function(x) dist2(x, x))
+            dist_mRNA = lapply(as.matrix(data_mRNA_Norm), function(x) dist2(x, x))
+            dist_methyl = lapply(as.matrix(data_methyl_Norm), function(x) dist2(x, x))
+            affinityL_miRNA = lapply(dist_miRNA, function(x) affinityMatrix(x, n_neighbour, alpha))
+            affinityL_mRNA = lapply(dist_mRNA, function(x) affinityMatrix(x, n_neighbour, alpha))
+            affinityL_methyl = lapply(dist_methyl, function(x) affinityMatrix(x, n_neighbour, alpha))
+            W_miRNA = SNF(affinityL_miRNA, n_neighbour, T)
+            W_mRNA = SNF(affinityL_mRNA, n_neighbour, T)
+            W_methyl = SNF(affinityL_methyl, n_neighbour, T)
+            W_integrated = SNF(list(W_miRNA, W_mRNA, W_methyl), n_neighbour, T)
+            clus = spectralClustering(W_integrated, maxK)
+            df = data.frame(samples = rownames(data_miRNA), K = rep(maxK, length(rownames(data_miRNA))), cluster = clus)
+            outFile_clus <- file.path("output", "clustering_results", paste(tumor_type, "classification_SNF.txt", sep = "_"))
+            write.table(df, file = outFile_clus, sep = "\t", quote = FALSE, col.names = NA)
+            pca_result <- prcomp(W_integrated, center = TRUE, scale. = TRUE)
+            pca_df <- as.data.frame(pca_result$x)
+            pca_df$cluster <- as.factor(clus)
+            ggplot(pca_df, aes(x = PC1, y = PC2, color = cluster)) +
+                    geom_point(size = 3) +
+                    labs(title = paste("PCA of Patients with SNF Clustering"),
+                            x = "Principal Component 1",
+                            y = "Principal Component 2") +
+                    theme_minimal() +
+                    theme(legend.title = element_blank(), 
+                                legend.position = "right",
+                                panel.background = element_rect(fill = "white", color = "white"),
+                                plot.background = element_rect(fill = "white", color = "white"),
+                                panel.grid.major = element_line(color = "grey80"),
+                                panel.grid.minor = element_line(color = "grey90"),
+                                plot.title = element_text(color = "black", hjust = 0.5),
+                                axis.title = element_text(color = "black"),
+                                axis.text = element_text(color = "black"),
+                                panel.border = element_rect(color = "black", fill = NA, size = 1))
+            ggsave(filename = file.path("output", "clustering_results", paste(tumor_type, "SNF_pca.png", sep = "_")), plot = last_plot(), width = 10, height = 8)
+        }}
+        """
+        robjects.r(r_code)
+        return os.path.join("output", "clustering_results", f"{cancer_type}_classification_SNF.txt")
+
 # Function to get user input for algorithm and number of clusters
 def get_user_input():
     print("Select the algorithm to run:")
@@ -319,7 +419,7 @@ def define_clustering_methods(algorithm_choice, k, cancer_type):
 
 
 # Function to perform clustering and save the results
-def perform_clustering_and_save_results(clustering_methods, X_scaled, pca_df, output_folder):
+def perform_clustering_and_save_results(clustering_methods, X_scaled, pca_df, output_folder, cancer_type: str):
     # Ensure reproducibility of colors
     np.random.seed(42)
 
@@ -327,6 +427,7 @@ def perform_clustering_and_save_results(clustering_methods, X_scaled, pca_df, ou
     colors = ['r', 'g', 'b', 'y', 'c', 'm', 'k']
 
     # cnt = 2;
+    metrics: Dict[str, Dict[str, float]] = {}
     for method_name, model in clustering_methods.items():
         # print(method_name)
         # print(f"Algorithm: {method_name}")
@@ -350,10 +451,22 @@ def perform_clustering_and_save_results(clustering_methods, X_scaled, pca_df, ou
         pca_df.index += 1  # Start index from 1
 
         # Add a column for the number of clusters used
-        pca_df['K'] = model.n_clusters
+        n_clusters = getattr(model, 'n_clusters', len(set(cluster_labels)))
+        pca_df['K'] = n_clusters
 
-        # Save classification file for each algorithm as a text file
-        classification_file = os.path.join(output_folder, f'LUAD_classification_{method_name}.txt')
+        # Compute clustering metrics (guard small cluster edge cases)
+        metric_record: Dict[str, float] = {}
+        try:
+            if len(set(cluster_labels)) > 1 and len(cluster_labels) > len(set(cluster_labels)):
+                metric_record['silhouette'] = float(silhouette_score(X_scaled, cluster_labels))
+                metric_record['calinski_harabasz'] = float(calinski_harabasz_score(X_scaled, cluster_labels))
+                metric_record['davies_bouldin'] = float(davies_bouldin_score(X_scaled, cluster_labels))
+        except Exception:
+            pass
+        metrics[method_name] = metric_record
+
+        # Save classification file for each algorithm as a text file (dynamic cancer type)
+        classification_file = os.path.join(output_folder, f'{cancer_type}_classification_{method_name}.txt')
         pca_df[['samples', 'K', 'cluster']].to_csv(classification_file, sep='\t', index=True)
 
         # Sort the unique cluster labels to ensure consistent labeling
@@ -362,14 +475,13 @@ def perform_clustering_and_save_results(clustering_methods, X_scaled, pca_df, ou
         # Create a new figure for each clustering method
         plt.figure(figsize=(10, 8))
 
-        # print(f"Algorithm: {method_name}")
         print(f"{BOLD}🔍 Selected algorithm: {RESET}{method_name}")
 
         # Plot the PCA result
         for cluster_label in unique_clusters:
             cluster_data = pca_df[pca_df['cluster'] == cluster_label]
-            plt.scatter(cluster_data['PC1'], cluster_data['PC2'], 
-                        c=colors[cluster_label % len(colors)], 
+            plt.scatter(cluster_data['PC1'], cluster_data['PC2'],
+                        c=colors[cluster_label % len(colors)],
                         label=f'cluster {cluster_label}')
 
         plt.title(f'PCA of Patients with {method_name}')
@@ -383,6 +495,45 @@ def perform_clustering_and_save_results(clustering_methods, X_scaled, pca_df, ou
         plt.savefig(plot_file)
         print(f"{BOLD}{BLUE}📊 Analysis Summary:{RESET}")
         print(f"{CYAN}📈 {BOLD}Results:{RESET} {YELLOW}All Clustering results saved to clustering_results folder.{RESET}")
+
+    return metrics
+
+
+def run_non_interactive_clustering(X_scaled: np.ndarray, pca_df: pd.DataFrame, cancer_type: str, k: int,
+                                   algorithms: List[str], snf_params: Optional[Dict] = None) -> Dict[str, str]:
+    """Run selected clustering algorithms without any input() calls.
+
+    Returns dict mapping algorithm -> classification file path.
+    """
+    results: Dict[str, str] = {}
+    algo_map = {
+        'KMeans': KMeans(n_clusters=k, random_state=42),
+        'Hierarchical': AgglomerativeClustering(n_clusters=k),
+        'SpectralClustering': SpectralClustering(n_clusters=k, assign_labels="discretize", random_state=42),
+        'FuzzyCMeans': FuzzyCMeansWrapper(n_clusters=k)
+    }
+    # Run SNF separately because it's in R
+    if 'SNF' in algorithms:
+        if R_AVAILABLE:
+            params = snf_params or {}
+            run_snf_non_interactive(
+                n_clusters=k,
+                cancer_type=cancer_type,
+                n_neighbour=params.get('n_neighbour', 20),
+                alpha=params.get('alpha', 0.5),
+                T=params.get('T', 15)
+            )
+            results['SNF'] = os.path.join('output', 'clustering_results', f'{cancer_type}_classification_SNF.txt')
+        else:
+            print("[WARN] Skipping SNF: R environment not available (rpy2 import failed).")
+    other_algos = [a for a in algorithms if a != 'SNF']
+    metrics: Dict[str, Dict[str, float]] = {}
+    if other_algos:
+        method_objs = {name: algo_map[name] for name in other_algos if name in algo_map}
+        metrics = perform_clustering_and_save_results(method_objs, X_scaled, pca_df.copy(), output_folder, cancer_type)
+        for name in method_objs:
+            results[name] = os.path.join('output', 'clustering_results', f'{cancer_type}_classification_{name}.txt')
+    return results, metrics
 
 
 # Main function to execute the script

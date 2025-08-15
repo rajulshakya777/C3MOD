@@ -1,7 +1,33 @@
 import os
 import pickle
-import rpy2.robjects as robjects
-from rpy2.robjects import r
+import warnings
+import pandas as pd
+import matplotlib.pyplot as plt
+from typing import List, Dict
+
+# Try R-based environment first
+try:
+  import rpy2.robjects as robjects  # type: ignore
+  from rpy2.robjects import r  # type: ignore
+  R_AVAILABLE = True
+except Exception as e:  # noqa: E722
+  robjects = None  # type: ignore
+  r = None  # type: ignore
+  R_AVAILABLE = False
+  _R_IMPORT_ERROR = e
+
+# Try Python lifelines fallback
+try:
+  from lifelines import KaplanMeierFitter
+  from lifelines.statistics import logrank_test
+  LIFELINES_AVAILABLE = True
+except Exception as e:  # noqa: E722
+  KaplanMeierFitter = None  # type: ignore
+  logrank_test = None  # type: ignore
+  LIFELINES_AVAILABLE = False
+  _LIFELINES_IMPORT_ERROR = e
+
+SURVIVAL_ENABLED = R_AVAILABLE or LIFELINES_AVAILABLE
 
 
 # Color and style codes
@@ -18,14 +44,11 @@ CHECK_EMOJI = f"{GREEN}✔{RESET}"
 output_dir = os.path.join(os.path.dirname(__file__), '..', 'output', 'survival_analysis')
 os.makedirs(output_dir, exist_ok=True)
 
-def survival_analysis(selected_cancer, K, algorithm_choice):
-    # Set the selected cancer, K, and algorithm choice in the R environment
-    r(f'cancers <- list("{selected_cancer}")')
-    r(f'K <- {K}')
-    # r(f'df_methods <- data.frame(methods = c("{algorithm_choice}"))')
-    
-    # R script for survival analysis
-    r(f'''
+def _survival_analysis_r(selected_cancer, K, algorithm_choice):
+  """Original R-based survival analysis."""
+  r(f'cancers <- list("{selected_cancer}")')
+  r(f'K <- {K}')
+  r(f'''
       invisible(capture.output({{
       library(stringr)
       library(survival)
@@ -175,40 +198,141 @@ def survival_analysis(selected_cancer, K, algorithm_choice):
     write.table(df_methods, file = file.path("output", "survival_analysis", "p_values.txt"), sep = "\t", row.names = FALSE, quote = FALSE)
     ''')
 
+
+def _find_survival_file(cancer: str) -> str:
+  """Locate survival file (supports both root and survival_data subdir)."""
+  candidates = [
+    os.path.join('data', 'input_data', 'TCGA_data', cancer, f'{cancer}.survival_UCal.tsv'),
+    os.path.join('data', 'input_data', 'TCGA_data', cancer, 'survival_data', f'{cancer}.survival_UCal.tsv'),
+  ]
+  for path in candidates:
+    if os.path.exists(path):
+      return path
+  raise FileNotFoundError(f'Survival file not found for {cancer}. Looked in: {candidates}')
+
+
+def _python_survival_for_algorithm(cancer: str, K: int, algorithm: str) -> Dict[str, str]:
+  """Run survival analysis using lifelines for one algorithm; returns produced file paths."""
+  if not LIFELINES_AVAILABLE:
+    raise RuntimeError(f'lifelines not installed: {_LIFELINES_IMPORT_ERROR}')
+  survival_file = _find_survival_file(cancer)
+  surv_df = pd.read_csv(survival_file, sep='\t', index_col=0)
+  # Normalize sample IDs similar to R code (replace '-' with '.')
+  surv_df.index = surv_df.index.str.replace('-', '.')
+  # Needed columns
+  required_cols = {'OS', 'OS.time'}
+  if not required_cols.issubset(set(surv_df.columns)):
+    raise ValueError(f'Survival file missing required columns {required_cols}')
+
+  class_file = os.path.join('output', 'clustering_results', f'{cancer}_classification_{algorithm}.txt')
+  if not os.path.exists(class_file):
+    warnings.warn(f'Classification file missing: {class_file}', RuntimeWarning)
+    return {}
+  cls_df = pd.read_csv(class_file, sep='\t', index_col=0)
+  # Ensure consistent naming
+  if 'samples' not in cls_df.columns or 'cluster' not in cls_df.columns or 'K' not in cls_df.columns:
+    raise ValueError('Classification file missing required columns (samples, cluster, K)')
+  cls_df = cls_df[cls_df['K'] == K]
+  cls_df = cls_df.set_index('samples')
+  # Intersect
+  common = surv_df.index.intersection(cls_df.index)
+  if len(common) == 0:
+    warnings.warn(f'No overlapping samples for survival analysis ({algorithm}).', RuntimeWarning)
+    return {}
+  merged = pd.DataFrame({
+    'OS': surv_df.loc[common, 'OS'],
+    'OS.time': surv_df.loc[common, 'OS.time'],
+    'cluster': cls_df.loc[common, 'cluster']
+  }).dropna()
+  # Plot KM curves
+  km_fig, ax = plt.subplots(figsize=(7, 5))
+  kmf = KaplanMeierFitter()
+  p_values = {}
+  clusters = sorted(merged['cluster'].unique())
+  for c in clusters:
+    mask = merged['cluster'] == c
+    kmf.fit(durations=merged.loc[mask, 'OS.time'], event_observed=merged.loc[mask, 'OS'], label=f'Cluster {c}')
+    kmf.plot(ax=ax)
+  ax.set_title(f'{algorithm} Clusters Survival (Python)')
+  ax.set_xlabel('Time (Days)')
+  ax.set_ylabel('Survival Probability')
+  km_plot_path = os.path.join(output_dir, f'{algorithm}_survival_plot_python.png')
+  km_fig.tight_layout()
+  km_fig.savefig(km_plot_path, dpi=150)
+  plt.close(km_fig)
+  # Pairwise log-rank tests
+  import numpy as np
+  p_matrix = np.full((len(clusters), len(clusters)), np.nan)
+  for i, ci in enumerate(clusters):
+    for j, cj in enumerate(clusters):
+      if j <= i:
+        continue
+      r1 = merged['cluster'] == ci
+      r2 = merged['cluster'] == cj
+      res = logrank_test(merged.loc[r1, 'OS.time'], merged.loc[r2, 'OS.time'],
+                 event_observed_A=merged.loc[r1, 'OS'], event_observed_B=merged.loc[r2, 'OS'])
+      p_matrix[i, j] = res.p_value
+  # Heatmap
+  fig_h, ax_h = plt.subplots(figsize=(5, 4))
+  im = ax_h.imshow(p_matrix, cmap='viridis', vmin=0, vmax=0.1)
+  ax_h.set_xticks(range(len(clusters)))
+  ax_h.set_yticks(range(len(clusters)))
+  ax_h.set_xticklabels(clusters)
+  ax_h.set_yticklabels(clusters)
+  ax_h.set_title('Pairwise Log-rank p-values')
+  for i in range(len(clusters)):
+    for j in range(len(clusters)):
+      if not (j > i):
+        continue
+      val = p_matrix[i, j]
+      if not (val is None or pd.isna(val)):
+        ax_h.text(j, i, f'{val:.3g}', ha='center', va='center', color='white', fontsize=9)
+  fig_h.colorbar(im, ax=ax_h, fraction=0.046, pad=0.04)
+  heatmap_path = os.path.join(output_dir, f'{algorithm}_survival_pvalues_python.png')
+  fig_h.tight_layout()
+  fig_h.savefig(heatmap_path, dpi=150)
+  plt.close(fig_h)
+  return {'km_plot': km_plot_path, 'pvalue_heatmap': heatmap_path}
+
+
+def survival_analysis(selected_cancer: str, K: int, algorithm_choice: int):
+  """Dispatch to R or Python implementation based on availability.
+
+  algorithm_choice follows original convention (1..5 or 6 for all).
+  """
+  algorithms = ["SNF", "KMeans", "Hierarchical", "SpectralClustering", "FuzzyCMeans", "All"]
+  if R_AVAILABLE:
+    _survival_analysis_r(selected_cancer, K, algorithm_choice)
+    return
+  if not LIFELINES_AVAILABLE:
+    print(f"[WARN] Survival analysis skipped: neither R nor lifelines available (R error: {_R_IMPORT_ERROR}, lifelines error: {_LIFELINES_IMPORT_ERROR})")
+    return
+  # Python fallback
+  if algorithm_choice == 6:
+    algos_to_run = algorithms[:-1]  # all but 'All'
+  else:
+    algos_to_run = [algorithms[algorithm_choice - 1]]
+  print(f"[INFO] Python survival analysis running for: {', '.join(algos_to_run)}")
+  for algo in algos_to_run:
+    try:
+      _python_survival_for_algorithm(selected_cancer, K, algo)
+    except Exception as e:
+      print(f"[WARN] Survival analysis failed for {algo}: {e}")
+
 # Main function
 def main():
-    # Load the data from the .pkl file
-    with open(os.path.join('.', 'modules', 'data.pkl'), 'rb') as f:
-        X_scaled, pca_df, cancer_type, k, algorithm_choice = pickle.load(f)
-
-    # Extract selected cancer and K values
-    selected_cancer = cancer_type
-    K = k
-
-    # Debugging print statements to verify inputs
-    # print("Selected Cancer:", cancer_type)
-    # print("Number of Clusters (K):", k)
-    # print("Algorithm Choice:", algorithm_choice)
-
-    # Convert algorithm_choice from string to integer
-    algorithm_choice = int(algorithm_choice)
-    algorithms = ["SNF", "KMeans", "Hierarchical", "SpectralClustering", "FuzzyCMeans", "All"]
-    # print(f"Choosen algorithm: {algorithms[algorithm_choice-1]}")
-    # Call the survival analysis function
-    # survival_analysis(selected_cancer, K, algorithm_choice)
-
-    if algorithm_choice == 6:
-        print(f"{BOLD}🧬 Running Survival Analysis for Clusters: {RESET}SNF, KMeans, Hierarchical, SpectralClustering, and FuzzyCMeans")
-        for i, algorithm in enumerate(algorithms[:-1], 1):  # Iterate over all algorithms except "All"
-            # print(f"Choosen algorithm: {algorithm}")
-            survival_analysis(selected_cancer, K, i)
-    else:
-        algorithm = algorithms[algorithm_choice-1]
-        print(f"{BOLD}🧬 Running Survival Analysis for Cluster: {RESET}{algorithm}")
-        survival_analysis(selected_cancer, K, algorithm_choice)
-
-    print(f"{BOLD}{BLUE}📊 Analysis Summary:{RESET}")
-    print(f"{CYAN}📈 {BOLD}Results:{RESET} {YELLOW}Survival analysis results saved to survival_analysis folder.{RESET}")
+  if not SURVIVAL_ENABLED:
+    print("[WARN] No survival backend available (install R + packages or 'lifelines').")
+    return
+  with open(os.path.join('.', 'modules', 'data.pkl'), 'rb') as f:
+    X_scaled, pca_df, cancer_type, k, algorithm_choice = pickle.load(f)
+  selected_cancer = cancer_type
+  K = k
+  algorithm_choice = int(algorithm_choice)
+  # Run analysis
+  survival_analysis(selected_cancer, K, algorithm_choice)
+  print(f"{BOLD}{BLUE}📊 Analysis Summary:{RESET}")
+  print(f"{CYAN}📈 {BOLD}Results:{RESET} {YELLOW}Survival analysis results saved to survival_analysis folder.{RESET}")
 
 if __name__ == "__main__":
     main()
