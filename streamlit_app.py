@@ -118,6 +118,13 @@ def list_generated_files(subfolder):
 
 st.set_page_config(page_title="C3MOD - Cancer Clustering and Characterization", layout='wide', page_icon="🧬")
 
+# Initialize session state for cloud deployment compatibility
+if 'app_initialized' not in st.session_state:
+    st.session_state['app_initialized'] = True
+    st.session_state['preprocessing_completed'] = False
+    st.session_state['clustering_done'] = False
+    st.session_state['analyses_done'] = False
+
 # ----------------- Theming / CSS -----------------
 CUSTOM_CSS = """
 <style>
@@ -454,7 +461,7 @@ section[data-testid="stSidebar"] div.stButton button[kind="secondary"]:active {
   padding: 1.2rem 1.4rem;
   margin: 1.2rem 0;
   box-shadow: 0 6px 16px -4px rgba(34, 197, 94, 0.3), 0 2px 4px rgba(34, 197, 94, 0.1);
-  animation: successSlideIn 0.8s ease-out both, successPulse 1.0s ease-in-out 0.8s, successFadeOut 0.8s ease-in-out 2.5s both;
+  animation: successSlideIn 0.6s ease-out both, successPulse 1.0s ease-in-out 0.6s;
   position: relative;
   overflow: hidden;
 }
@@ -589,7 +596,7 @@ section[data-testid="stSidebar"] div.stButton button[kind="secondary"]:active {
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
 # Hard refresh status calculation for header badge
-_preprocessing_done = bool(os.path.exists(DATA_PKL_PATH))
+_preprocessing_done = bool(os.path.exists(DATA_PKL_PATH)) or bool(st.session_state.get('preprocessing_completed', False))
 _clustering_done = bool(st.session_state.get('clustering_done'))
 _analyses_done = bool(st.session_state.get('analyses_done'))
 _active_states = [int(_preprocessing_done), int(_clustering_done), int(_analyses_done)]
@@ -597,6 +604,8 @@ _completed = sum(_active_states)
 
 # Debug logging for hard refresh
 print(f'[HEADER] Hard refresh status: Preprocessing={_preprocessing_done}, Clustering={_clustering_done}, Analyses={_analyses_done} (Total: {_completed}/3)')
+print(f'[DEBUG] Session state: preprocessing_completed={st.session_state.get("preprocessing_completed", False)}, clustering_done={st.session_state.get("clustering_done", False)}, analyses_done={st.session_state.get("analyses_done", False)}')
+print(f'[DEBUG] File exists: {os.path.exists(DATA_PKL_PATH)}')
 
 _badge_html = f"<span class='c3mod-badge c3mod-pulse'>STEP {_completed}/3</span>" if _completed < 3 else "<span class='c3mod-badge'>ALL STEPS COMPLETE</span>"
 st.markdown(f"""
@@ -717,7 +726,7 @@ with st.sidebar:
     st.header("⚙️ Pipeline Status")
     
     # Force refresh status by re-checking files and session state
-    preprocessing_done = bool(os.path.exists(DATA_PKL_PATH))
+    preprocessing_done = bool(os.path.exists(DATA_PKL_PATH)) or bool(st.session_state.get('preprocessing_completed', False))
     clustering_done = bool(st.session_state.get('clustering_done', False))
     analyses_done = bool(st.session_state.get('analyses_done', False))
     
@@ -908,7 +917,9 @@ with tab1:
     if st.button("Run Preprocessing", key="preprocess_btn"):
         with st.spinner("Preprocessing data..."):
             run_preprocessing(cancer_type)
-        st.markdown("""
+            # Set session state immediately after preprocessing
+            st.session_state['preprocessing_completed'] = True
+            st.markdown("""
         <div class="success-message">
             <div style="display: flex; align-items: flex-start;">
                 <span class="icon">✅</span>
@@ -919,12 +930,11 @@ with tab1:
             </div>
         </div>
         """, unsafe_allow_html=True)
-        # Hard refresh to update status indicators after fade-out animation
-        time.sleep(3.5)  # Wait for graceful fade-out (2.5s delay + 0.8s fade + 0.2s buffer)
-        print('[INFO] Hard refresh: Updating preprocessing status to Complete')
-        st.rerun()
+            # Use st.rerun() without sleep for better cloud compatibility
+            print('[INFO] Hard refresh: Updating preprocessing status to Complete')
+            st.rerun()
 
-preprocessed = bool(os.path.exists(DATA_PKL_PATH))
+preprocessed = bool(os.path.exists(DATA_PKL_PATH)) or bool(st.session_state.get('preprocessing_completed', False))
 
 with tab2:
     st.markdown("""
@@ -996,8 +1006,7 @@ with tab2:
                 </div>
             </div>
             """, unsafe_allow_html=True)
-            # Hard refresh to update status indicators after fade-out animation
-            time.sleep(3.5)  # Wait for graceful fade-out
+            # Use st.rerun() without sleep for better cloud compatibility
             print('[INFO] Hard refresh: Updating clustering status to Complete')
             st.rerun()
         if st.session_state.get('pca_plots'):
@@ -1076,8 +1085,7 @@ with tab3:
                 </div>
             </div>
             """, unsafe_allow_html=True)
-            # Hard refresh to update status indicators after fade-out animation
-            time.sleep(3.3)  # Wait for graceful fade-out
+            # Use st.rerun() without sleep for better cloud compatibility
             print('[INFO] Hard refresh: Updating analyses status to Complete')
             st.rerun()
 
