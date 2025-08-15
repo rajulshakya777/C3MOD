@@ -9,12 +9,26 @@ import uuid
 import pickle
 import streamlit as st
 import pandas as pd
-from modules import data_preprocessing
-from modules import clustering as clustering_mod
-from modules import survival_analysis as surv_mod
-from modules import mutation_analysis as mut_mod
-from modules import stage_analysis as stage_mod
-from modules import immune_analysis as immune_mod
+
+# Import modules with error handling for cloud deployment
+try:
+    from modules import data_preprocessing
+    from modules import clustering as clustering_mod
+    from modules import survival_analysis as surv_mod
+    from modules import mutation_analysis as mut_mod
+    from modules import stage_analysis as stage_mod
+    from modules import immune_analysis as immune_mod
+except ImportError as e:
+    # Fallback imports for cloud deployment
+    import sys
+    import os
+    sys.path.append(os.path.join(os.path.dirname(__file__), 'modules'))
+    import data_preprocessing
+    import clustering as clustering_mod
+    import survival_analysis as surv_mod
+    import mutation_analysis as mut_mod
+    import stage_analysis as stage_mod
+    import immune_analysis as immune_mod
 
 # NOTE: Existing modules are very file-output oriented. For first iteration we trigger them and then surface produced files.
 # Later we can refactor each analysis to return in-memory figures / dataframes instead of only writing to disk.
