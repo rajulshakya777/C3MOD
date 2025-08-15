@@ -1,0 +1,2 @@
+# System packages for Streamlit Cloud deployment
+# No R packages needed since we removed rpy2 dependency

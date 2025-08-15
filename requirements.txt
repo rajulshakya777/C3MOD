@@ -6,5 +6,4 @@ matplotlib
 seaborn
 scipy
 scikit-fuzzy
-rpy2
 lifelines

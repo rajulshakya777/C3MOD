@@ -6,13 +6,21 @@ import matplotlib.pyplot as plt
 import skfuzzy as fuzz
 import pickle
 import warnings
-from rpy2 import robjects
-from rpy2.robjects import pandas2ri
 import os
 
+# Try to import R dependencies
+try:
+    from rpy2 import robjects
+    from rpy2.robjects import pandas2ri
+    pandas2ri.activate()
+    R_AVAILABLE = True
+except Exception as e:
+    robjects = None
+    pandas2ri = None
+    R_AVAILABLE = False
+    _R_IMPORT_ERROR = e
+
 warnings.filterwarnings("ignore")
-# Activate the automatic conversion of pandas DataFrames to R DataFrames
-pandas2ri.activate()
 
 # Color and style codes
 YELLOW = "\033[1;33m"
@@ -138,6 +146,8 @@ def run_fuzzycmeans(X_scaled):
 
 
 def run_snf(cancer_type):
+    if not R_AVAILABLE:
+        raise RuntimeError(f"SNF requires R environment (rpy2 not available): {_R_IMPORT_ERROR}")
 
     # Load other libraries (like SNFtool) in R
     robjects.r('''
