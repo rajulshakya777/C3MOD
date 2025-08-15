@@ -54,6 +54,10 @@ def run_preprocessing(cancer_type: str):
     data_preprocessing.get_cancer_type = lambda: cancer_type
     try:
         data_preprocessing.main()
+        # Set session state after successful preprocessing
+        st.session_state['preprocessing_completed'] = True
+        st.session_state['show_preprocessing_success'] = True
+        print('[INFO] Preprocessing completed successfully, session state updated')
     finally:
         data_preprocessing.get_cancer_type = orig
 
@@ -124,6 +128,9 @@ if 'app_initialized' not in st.session_state:
     st.session_state['preprocessing_completed'] = False
     st.session_state['clustering_done'] = False
     st.session_state['analyses_done'] = False
+    st.session_state['show_preprocessing_success'] = False
+    st.session_state['show_clustering_success'] = False
+    st.session_state['show_analyses_success'] = False
 
 # ----------------- Theming / CSS -----------------
 CUSTOM_CSS = """
@@ -691,7 +698,8 @@ def initialize_session():
             except Exception as e:
                 print(f'[WARN] Could not remove data.pkl: {e}')
         # Reset session state
-        for key in ['preprocessed','clustering_done','analyses_done','pca_plots','classification_files','clustering_metrics']:
+        for key in ['preprocessed','clustering_done','analyses_done','pca_plots','classification_files','clustering_metrics',
+                    'show_preprocessing_success','show_clustering_success','show_analyses_success']:
             if key in st.session_state:
                 del st.session_state[key]
     if 'session_id' not in st.session_state:
@@ -714,7 +722,8 @@ if 'app_initialized' not in st.session_state:
     clear_output_files()
     
     # Reset all pipeline states
-    for key in ['preprocessed','clustering_done','analyses_done','pca_plots','classification_files','clustering_metrics']:
+    for key in ['preprocessed','clustering_done','analyses_done','pca_plots','classification_files','clustering_metrics',
+                'show_preprocessing_success','show_clustering_success','show_analyses_success']:
         if key in st.session_state:
             del st.session_state[key]
     
@@ -725,16 +734,16 @@ if 'app_initialized' not in st.session_state:
 with st.sidebar:
     st.header("⚙️ Pipeline Status")
     
-    # Force refresh status by re-checking files and session state
-    preprocessing_done = bool(os.path.exists(DATA_PKL_PATH)) or bool(st.session_state.get('preprocessing_completed', False))
+    # Force refresh status by re-checking session state as primary source
+    preprocessing_done = bool(st.session_state.get('preprocessing_completed', False))
     clustering_done = bool(st.session_state.get('clustering_done', False))
     analyses_done = bool(st.session_state.get('analyses_done', False))
     
     # Hard refresh status display with detailed logging
     if preprocessing_done:
-        print('[STATUS] Preprocessing: File exists - showing Complete')
+        print('[STATUS] Preprocessing: Session state set - showing Complete')
     else:
-        print('[STATUS] Preprocessing: No file found - showing Pending')
+        print('[STATUS] Preprocessing: No session state - showing Pending')
         
     if clustering_done:
         print('[STATUS] Clustering: Session state set - showing Complete')
@@ -917,9 +926,12 @@ with tab1:
     if st.button("Run Preprocessing", key="preprocess_btn"):
         with st.spinner("Preprocessing data..."):
             run_preprocessing(cancer_type)
-            # Set session state immediately after preprocessing
-            st.session_state['preprocessing_completed'] = True
-            st.markdown("""
+            print('[INFO] Hard refresh: Updating preprocessing status to Complete')
+            st.rerun()
+    
+    # Show success message if preprocessing just completed
+    if st.session_state.get('show_preprocessing_success', False):
+        st.markdown("""
         <div class="success-message">
             <div style="display: flex; align-items: flex-start;">
                 <span class="icon">✅</span>
@@ -930,9 +942,8 @@ with tab1:
             </div>
         </div>
         """, unsafe_allow_html=True)
-            # Use st.rerun() without sleep for better cloud compatibility
-            print('[INFO] Hard refresh: Updating preprocessing status to Complete')
-            st.rerun()
+        # Clear the success flag after showing it once
+        st.session_state['show_preprocessing_success'] = False
 
 preprocessed = bool(os.path.exists(DATA_PKL_PATH)) or bool(st.session_state.get('preprocessing_completed', False))
 
@@ -992,9 +1003,15 @@ with tab2:
                 clear_output_files()
                 result_files, pca_plots, metrics = run_clustering(cancer_type, k, selected_algos, snf_params)
             st.session_state['clustering_done'] = True
+            st.session_state['show_clustering_success'] = True
             st.session_state['pca_plots'] = pca_plots
             st.session_state['classification_files'] = result_files
             st.session_state['clustering_metrics'] = metrics
+            print('[INFO] Hard refresh: Updating clustering status to Complete')
+            st.rerun()
+        
+        # Show success message if clustering just completed
+        if st.session_state.get('show_clustering_success', False):
             st.markdown("""
             <div class="success-message">
                 <div style="display: flex; align-items: flex-start;">
@@ -1006,9 +1023,8 @@ with tab2:
                 </div>
             </div>
             """, unsafe_allow_html=True)
-            # Use st.rerun() without sleep for better cloud compatibility
-            print('[INFO] Hard refresh: Updating clustering status to Complete')
-            st.rerun()
+            # Clear the success flag after showing it once
+            st.session_state['show_clustering_success'] = False
         if st.session_state.get('pca_plots'):
             st.markdown("### PCA Plots")
             cols = st.columns(len(st.session_state['pca_plots']))
@@ -1074,6 +1090,12 @@ with tab3:
                     for label in analyses_to_run:
                         run_analysis(ANALYSES[label], algo_choice_number)
             st.session_state['analyses_done'] = True
+            st.session_state['show_analyses_success'] = True
+            print('[INFO] Hard refresh: Updating analyses status to Complete')
+            st.rerun()
+        
+        # Show success message if analyses just completed
+        if st.session_state.get('show_analyses_success', False):
             st.markdown("""
             <div class="success-message">
                 <div style="display: flex; align-items: flex-start;">
@@ -1085,9 +1107,8 @@ with tab3:
                 </div>
             </div>
             """, unsafe_allow_html=True)
-            # Use st.rerun() without sleep for better cloud compatibility
-            print('[INFO] Hard refresh: Updating analyses status to Complete')
-            st.rerun()
+            # Clear the success flag after showing it once
+            st.session_state['show_analyses_success'] = False
 
 with tab4:
     st.markdown("""
